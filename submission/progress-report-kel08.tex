@@ -1,0 +1,469 @@
+%==============================================================================
+% PROGRESS REPORT - PROYEK PENGGANTI UAS
+% Mata Kuliah Kecerdasan Buatan | Teknik Komputer - Universitas Indonesia
+% Semester Genap 2025/2026
+% Kelompok 08
+%==============================================================================
+
+\documentclass[11pt,a4paper,oneside]{report}
+
+%------ Bahasa & Font --------------------------------------------------------
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Consolas}[Scale=0.92]
+
+%------ Geometri & Spasi -----------------------------------------------------
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parskip}{0.5em}
+
+%------ Paket Pendukung ------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{caption}
+
+%------ Penyesuaian Bahasa Indonesia -----------------------------------------
+\renewcommand{\chaptername}{BAB}
+\renewcommand{\contentsname}{DAFTAR ISI}
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\renewcommand{\appendixname}{LAMPIRAN}
+\renewcommand{\figurename}{Gambar}
+\renewcommand{\tablename}{Tabel}
+
+%------ Format Bab -----------------------------------------------------------
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\centering}
+  {\chaptername\ \thechapter}{12pt}{\Large}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+%------ Hyperref -------------------------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black,
+  pdftitle={Progress Report - MK Kecerdasan Buatan}
+}
+
+%------ Listing untuk JSON ---------------------------------------------------
+\lstdefinelanguage{json}{
+  basicstyle=\ttfamily\footnotesize,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray!50},
+  string=[s]{"}{"},
+  stringstyle=\color{blue!60!black}
+}
+
+%------ Box Status -----------------------------------------------------------
+\newcommand{\statusbox}[1]{\textbf{[STATUS: #1]}}
+
+%==============================================================================
+\begin{document}
+
+%==============================================================================
+% HALAMAN SAMPUL
+%==============================================================================
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+
+{\Large\bfseries PROGRESS REPORT \par}
+{\large PROYEK PENGGANTI UAS \par}
+\vspace{0.3cm}
+{\large Mata Kuliah Kecerdasan Buatan \par}
+{\large Semester Genap 2025/2026 \par}
+
+\vspace{2cm}
+
+\vspace{1.5cm}
+
+{\LARGE\bfseries Klasifikasi Lalu Lintas Jaringan DDoS Menggunakan LSTM, GRU, dan Random Forest pada Dataset CIC-DDoS2019 \par}
+\vspace{0.5cm}
+{\large Perbandingan Arsitektur Temporal Deep Learning dan Machine Learning Tradisional untuk Deteksi Serangan Jaringan \par}
+
+\vspace{2cm}
+
+{\large Periode Laporan: \par}
+{\large 28 April 2026 -- 19 Mei 2026 \par}
+
+\vspace{1cm}
+
+{\large Disusun oleh: \par}
+\vspace{0.5cm}
+\begin{tabular}{rl}
+Calvin Wirathama Katoroy & NPM. 2306242395 \\
+Syahmi Hamdani           & NPM. 2306220532 \\
+Christover Angelo        & NPM. 2306220323 \\
+Matthew Immanuel         & NPM. 2306221024 \\
+\end{tabular}
+
+\vspace{1.5cm}
+
+{\large Dosen Pengampu: \par}
+{\large Muhammad Firdaus Syawaludin Lubis, Ph.D. \par}
+
+\vfill
+
+{\large DEPARTEMEN TEKNIK KOMPUTER \par}
+{\large FAKULTAS TEKNIK \par}
+{\large UNIVERSITAS INDONESIA \par}
+{\large MEI 2026 \par}
+\end{titlepage}
+
+%==============================================================================
+% DAFTAR ISI
+%==============================================================================
+\tableofcontents
+
+%==============================================================================
+% RINGKASAN EKSEKUTIF
+%==============================================================================
+\chapter*{RINGKASAN EKSEKUTIF}
+\addcontentsline{toc}{chapter}{Ringkasan Eksekutif}
+
+Proyek ini bertujuan mengklasifikasikan lalu lintas jaringan sebagai normal atau serangan DDoS menggunakan pendekatan deep learning berbasis RNN. Tiga model dibandingkan: LSTM sebagai model utama, GRU sebagai baseline 1, dan Random Forest sebagai baseline 2. Pemilihan LSTM didasari sifat sekuensial lalu lintas jaringan---pola temporal antar paket merupakan sinyal kritis untuk membedakan serangan dari aktivitas benign.
+
+Dataset yang digunakan adalah CIC-DDoS2019 versi \textit{cleaned} dari Kaggle (431.371 sampel, 17 jenis serangan DDoS, binary label: normal vs.\ ddos). Pipeline preprocessing mencakup: normalisasi label, seleksi 16 fitur CICFlowMeter, StandardScaler, stratified 70/15/15 split (seed 42), dan sliding window seq\_len=10 untuk model sekuensial.
+
+Per laporan ini, seluruh training dan evaluasi telah selesai dilaksanakan. Ketiga model telah dilatih di Google Colab GPU dengan masing-masing minimal 6 eksperimen hyperparameter tuning dan dievaluasi pada test set. Hasil pada test set: LSTM (F1=99.76\%, FPR=0.46\%), GRU (F1=99.75\%, FPR=0.28\%), Random Forest (F1=99.92\%, FPR=0.15\%). Penulisan laporan akhir sedang berlangsung sebelum \textit{deadline} 25 Mei 2026.
+
+\vspace{0.5em}
+\noindent\textbf{Persentase progres keseluruhan:} \fbox{85\%}
+
+%==============================================================================
+% BAB I - PENDAHULUAN & DEFINISI MASALAH
+%==============================================================================
+\chapter{PENDAHULUAN \& DEFINISI MASALAH}
+\label{bab:pendahuluan}
+
+\section{Topik yang Dipilih}
+
+Topik yang dipilih adalah \textbf{RNN / GRU / LSTM} (Topik 2). Lalu lintas jaringan pada dasarnya bersifat sekuensial---sebuah aliran jaringan terdiri dari serangkaian paket yang memiliki ketergantungan temporal satu sama lain. LSTM, sebagai varian Recurrent Neural Network (RNN) dengan mekanisme \textit{gating}, mampu menangkap pola temporal jangka panjang yang relevan dengan karakteristik serangan DDoS, seperti lonjakan volume paket yang terstruktur dalam waktu. Misalnya, sebuah lonjakan pada $t=47$ hanya bernilai anomali dalam konteks rentang $t=44..46$; pendekatan non-sekuensial seperti Random Forest tidak dapat menangkap konteks ini secara langsung.
+
+Topik ini juga berkaitan langsung dengan penelitian laboratorium kami di Network Laboratory DTE FT UI (repo: \url{https://github.com/calvinkatoroy/wazuh-gan-ddos-research}), di mana LSTM berpotensi menggantikan Random Forest sebagai diskriminator dalam pipeline GANDD-Bridge pada SIEM Wazuh.
+
+\section{Rumusan Masalah (Tentatif)}
+
+\begin{enumerate}[label=RM\arabic*.,leftmargin=*]
+    \item Seberapa baik model LSTM mampu mengklasifikasikan lalu lintas jaringan sebagai normal atau serangan DDoS pada dataset CIC-DDoS2019?
+    \item Apakah LSTM memberikan performa yang lebih baik dibanding GRU dan Random Forest dalam hal accuracy, F1-score, dan False Positive Rate?
+    \item Bagaimana pengaruh hyperparameter utama (hidden\_size, seq\_len, num\_layers) terhadap performa LSTM dalam konteks deteksi DDoS?
+\end{enumerate}
+
+\section{Ruang Lingkup \& Batasan Sementara}
+
+Proyek ini \textbf{mencakup}: (1) binary classification lalu lintas jaringan (normal vs.\ ddos); (2) perbandingan tiga arsitektur model pada dataset benchmark CIC-DDoS2019; (3) hyperparameter tuning terdokumentasi (minimal 5 eksperimen per model) untuk klaim bonus B1; (4) analisis etika dan bias terkait keterbatasan dataset untuk klaim bonus B3.
+
+Proyek ini \textbf{tidak mencakup}: (1) klasifikasi multi-kelas per jenis serangan DDoS; (2) deployment model ke sistem produksi atau integrasi langsung dengan Wazuh SIEM (cakupan penelitian lab terpisah); (3) pengumpulan dataset mandiri; (4) pengujian pada jenis serangan baru (QUIC-based DDoS, HTTP/2 RST flood) yang tidak ada dalam CIC-DDoS2019.
+
+%==============================================================================
+% BAB II - PENDEKATAN AI YANG DIRENCANAKAN
+%==============================================================================
+\chapter{PENDEKATAN AI YANG DIRENCANAKAN}
+\label{bab:pendekatan}
+
+\section{Studi Literatur yang Telah Dilakukan}
+
+\begin{enumerate}[leftmargin=*]
+    \item Sharafaldin, I., Lashkari, A.H., Hakak, S., \& Ghorbani, A.A. (2019). ``Developing Realistic Distributed Denial of Service (DDoS) Attack Dataset and Taxonomy.'' \textit{IEEE ICCST}. --- Paper orisinal CIC-DDoS2019; menjelaskan metodologi penangkapan \textit{traffic}, distribusi kelas, dan fitur CICFlowMeter yang menjadi dasar dataset kami.
+
+    \item Hochreiter, S., \& Schmidhuber, J. (1997). ``Long Short-Term Memory.'' \textit{Neural Computation, 9}(8), 1735--1780. --- Paper LSTM orisinal; dasar teori mekanisme \textit{forget/input/output gate} yang mengatasi vanishing gradient pada sekuensi panjang.
+
+    \item Cho, K., van Merrienboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., \& Bengio, Y. (2014). ``Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation.'' \textit{EMNLP}. --- Memperkenalkan GRU sebagai penyederhanaan LSTM; dasar arsitektur baseline 1 kami.
+
+    \item Breiman, L. (2001). ``Random Forests.'' \textit{Machine Learning, 45}(1), 5--32. --- Paper orisinal Random Forest; dasar implementasi baseline 2 dengan \textit{bagging} ensemble dan random feature subsets.
+
+    \item Roopak, M., Tian, G.Y., \& Chambers, J. (2019). ``Deep Learning Models for Cyber Security in IoT Networks.'' \textit{IEEE ICASI}. --- Menunjukkan keunggulan LSTM atas ML tradisional dalam deteksi intrusi jaringan; mendukung pilihan LSTM sebagai model utama.
+\end{enumerate}
+
+\section{Arsitektur Model yang Dipilih (Sementara)}
+
+Tiga arsitektur diimplementasikan untuk perbandingan komparatif:
+
+\textbf{LSTM (Model Utama):} Menerima input berupa sekuens aliran jaringan dengan panjang window \texttt{seq\_len=10} dan 16 fitur CICFlowMeter. LSTM dengan \texttt{hidden\_size=128} dan 2 \textit{layers} (dropout=0.3) diikuti oleh \textit{classification head} Linear(128$\to$64, ReLU, Dropout) dan Linear(64$\to$2). Hanya \textit{output} pada \textit{timestep} terakhir yang digunakan untuk klasifikasi.
+
+\textbf{GRU (Baseline 1):} Arsitektur identik dengan LSTM, hanya mengganti \texttt{nn.LSTM} dengan \texttt{nn.GRU}. GRU memiliki lebih sedikit parameter (tidak ada \textit{memory cell} terpisah), sehingga lebih cepat untuk dilatih namun berpotensi kurang ekspresif untuk pola temporal kompleks.
+
+\textbf{Random Forest (Baseline 2):} Menggunakan \textit{flat feature vector} (tanpa \textit{windowing}) dengan \texttt{n\_estimators=100} dan \texttt{class\_weight=`balanced'} untuk menangani ketidakseimbangan kelas.
+
+\begin{figure}[h!]
+\centering
+\fbox{\parbox[c][6cm][c]{0.7\textwidth}{\centering
+\textbf{Arsitektur LSTM (Model Utama)} \\[0.8em]
+\texttt{Input}: (batch $\times$ seq\_len=10 $\times$ 16 fitur) \\[0.3em]
+$\downarrow$ \\[0.3em]
+\texttt{nn.LSTM}(hidden=128, layers=2, dropout=0.3, batch\_first=True) \\[0.3em]
+$\downarrow$ ambil output $h_{t_{\text{last}}}$: (batch $\times$ 128) \\[0.3em]
+$\downarrow$ \\[0.3em]
+\texttt{Linear}(128 $\to$ 64) + \texttt{ReLU} + \texttt{Dropout}(0.3) \\[0.3em]
+$\downarrow$ \\[0.3em]
+\texttt{Linear}(64 $\to$ 2) \\[0.3em]
+$\downarrow$ \\[0.3em]
+\texttt{Output}: logit [normal, ddos]
+}}
+\caption{Sketsa arsitektur LSTM yang direncanakan. GRU identik kecuali mengganti \texttt{nn.LSTM} dengan \texttt{nn.GRU}.}
+\label{fig:arsitektur-sementara}
+\end{figure}
+
+\section{Justifikasi Awal Pemilihan Pendekatan}
+
+LSTM dipilih sebagai model utama karena dua alasan utama. Pertama, lalu lintas jaringan memiliki dimensi temporal yang kuat: sebuah serangan DDoS memanifestasikan dirinya sebagai lonjakan volume paket dalam rentang waktu, bukan sebagai satu paket tunggal yang anomali. LSTM dapat menangkap dependensi ini melalui mekanisme \textit{gating}-nya, sedangkan Random Forest memproses setiap sampel sebagai observasi independen. Kedua, proyek ini merupakan ekstensi dari penelitian laboratorium kami yang menggunakan Random Forest sebagai diskriminator dalam GANDD-Bridge; membandingkan LSTM/GRU dengan RF memberikan kontribusi langsung terhadap pertanyaan apakah arsitektur sekuensial dapat meningkatkan performa sistem deteksi tersebut.
+
+GRU dipilih sebagai baseline pertama karena berbagi prinsip yang sama dengan LSTM (gated recurrent unit) namun dengan arsitektur yang lebih sederhana, memungkinkan perbandingan efisiensi-performa yang bermakna. Random Forest dipilih sebagai baseline kedua karena merupakan metode yang sudah terbukti (\textit{established}) dalam domain deteksi intrusi jaringan dan merepresentasikan pendekatan ML tradisional non-sekuensial yang digunakan pada sistem produksi laboratorium kami.
+
+%==============================================================================
+% BAB III - PROGRES PEKERJAAN SAAT INI
+%==============================================================================
+\chapter{PROGRES PEKERJAAN SAAT INI}
+\label{bab:progres}
+
+\section{Ringkasan Status per Tahap}
+
+\begin{table}[h!]
+\centering
+\caption{Status per tahapan pekerjaan}
+\label{tab:status-tahapan}
+\begin{tabularx}{\textwidth}{lXl}
+\toprule
+\textbf{Tahap} & \textbf{Aktivitas} & \textbf{Status} \\
+\midrule
+Pencarian dataset      & Download CIC-DDoS2019 cleaned dari Kaggle (format Parquet, 431K+ sampel)       & [$\checkmark$] \\
+EDA \& pra-pemrosesan  & Seleksi 16 fitur, binary label mapping, StandardScaler, stratified 70/15/15 split, sliding window seq\_len=10       & [$\checkmark$] \\
+Implementasi model     & LSTM, GRU, RF modules di \texttt{src/models/}; training loop dan evaluasi selesai ditulis       & [$\checkmark$] \\
+Training awal          & Selesai untuk ketiga model di Google Colab GPU       & [$\checkmark$] \\
+Evaluasi \& metrik     & Confusion matrix, classification report, ROC/AUC per model telah digenerate       & [$\checkmark$] \\
+Hyperparameter tuning  & 6 eksperimen per model (LSTM \& GRU), 5 eksperimen RF, terdokumentasi di CSV       & [$\checkmark$] \\
+Error analysis         & Per-class error analysis via classification report dan confusion matrix       & [$\checkmark$] \\
+Penulisan laporan akhir & Draft Bab I--IV selesai, Bab V (kesimpulan) sedang disusun       & [$\bullet$] \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent Keterangan: $\checkmark$ = Selesai \quad $\bullet$ = Sedang berjalan \quad $\square$ = Belum mulai.
+
+\section{Dataset \& Pra-pemrosesan}
+
+\statusbox{selesai}
+
+Dataset CIC-DDoS2019 versi \textit{cleaned} dari Kaggle (\url{https://www.kaggle.com/datasets/dhoogla/cicddos2019}) telah berhasil diperoleh dalam format Parquet. Dataset ini merupakan versi yang sudah dibersihkan dari masalah kualitas data pada CSV orisinal CIC-UNB, yaitu nilai \texttt{Inf} yang dihasilkan CICFlowMeter pada aliran \textit{zero-duration} (pembagian dengan nol), nilai null, duplikat, dan kolom identifier (IP, port, timestamp) yang berpotensi menyebabkan \textit{data leakage}.
+
+\textbf{Statistik dataset:}
+\begin{itemize}[leftmargin=*]
+    \item Total sampel setelah penggabungan: 431.371 baris
+    \item Label setelah binary mapping: \texttt{normal} (Benign, $\approx$97.831 sampel) dan \texttt{ddos} (semua jenis serangan, $\approx$333.540 sampel)
+    \item Ketidakseimbangan kelas ditangani dengan \texttt{class\_weight=`balanced'} untuk RF dan weighted loss untuk LSTM/GRU
+\end{itemize}
+
+\textbf{Pipeline pra-pemrosesan} (diimplementasikan dalam \texttt{src/preprocessing.py}):
+\begin{enumerate}[leftmargin=*]
+    \item Load semua file Parquet dan normalisasi nama label ke binary (\texttt{normal}/\texttt{ddos})
+    \item Seleksi 16 fitur CICFlowMeter yang relevan secara temporal
+    \item Eliminasi baris dengan nilai NaN atau Inf
+    \item Stratified 70/15/15 split (seed 42) untuk menjaga proporsi kelas di setiap subset
+    \item StandardScaler di-\textit{fit} pada \textit{train set} saja, ditransformasi ke val dan test (mencegah \textit{data leakage})
+    \item Sliding window (seq\_len=10) untuk LSTM/GRU: menghasilkan tensor berukuran $(n, 10, 16)$
+    \item \textit{Flat feature vector} untuk Random Forest: menghasilkan array $(n, 16)$
+\end{enumerate}
+
+\section{Implementasi Model}
+
+\statusbox{selesai}
+
+Seluruh modul kode telah ditulis dan siap dijalankan di Google Colab. Struktur direktori \texttt{src/} adalah sebagai berikut:
+
+\begin{itemize}[leftmargin=*]
+    \item \texttt{src/models/lstm\_model.py}: \texttt{LSTMClassifier} (\texttt{nn.Module} PyTorch)
+    \item \texttt{src/models/gru\_model.py}: \texttt{GRUClassifier} (identik dengan LSTM, menggunakan \texttt{nn.GRU})
+    \item \texttt{src/models/rf\_model.py}: \textit{wrapper} \texttt{RandomForestClassifier} dari scikit-learn
+    \item \texttt{src/train.py}: training loop generik dengan logging per \textit{epoch} ke DataFrame
+    \item \texttt{src/evaluate.py}: \texttt{classification\_report}, confusion matrix, ROC/AUC
+    \item \texttt{src/preprocessing.py}: pipeline preprocessing lengkap (lihat Bab III.2)
+    \item \texttt{src/utils.py}: seed setting, tqdm progress bar, plot helpers
+    \item \texttt{config.yaml}: semua hyperparameter dan path (tidak ada \textit{magic number} dalam kode)
+\end{itemize}
+
+Notebook Colab tersedia di direktori \texttt{notebooks/}: \texttt{03\_lstm\_training.ipynb}, \texttt{04\_gru\_training.ipynb}, \texttt{05\_rf\_training.ipynb}, dan \texttt{08\_evaluation.ipynb}. Setiap notebook memanggil fungsi dari \texttt{src/} via \texttt{sys.path.insert}.
+
+Repository: \url{https://github.com/calvinkatoroy/tugas-akhir-ai-kel-08}
+
+\section{Hasil Eksperimen Sementara (Jika Ada)}
+
+\statusbox{selesai}
+
+Seluruh training telah selesai. Berikut hasil terbaik masing-masing model pada test set (stratified 15\% dari 431.371 sampel):
+
+\begin{table}[h!]
+\centering
+\caption{Hasil evaluasi pada test set (\textit{preliminary} --- final)}
+\label{tab:hasil-sementara}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Model} & \textbf{Best Val F1} & \textbf{Test F1} & \textbf{Accuracy} & \textbf{FPR} & \textbf{AUC} \\
+\midrule
+LSTM (hidden=128, layers=2, seq\_len=10) & 0.9976 & 0.9976 & 99.63\% & 0.46\% & 99.96\% \\
+GRU (hidden=256, layers=2, seq\_len=10)  & 0.9976 & 0.9975 & 99.61\% & 0.28\% & 99.96\% \\
+Random Forest (n\_estimators=100)        & --     & 0.9992 & 99.87\% & 0.15\% & 99.98\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Temuan menarik: Random Forest mengungguli kedua model deep learning pada semua metrik. Hal ini akan dibahas dalam laporan akhir---RF kemungkinan diuntungkan karena fitur CICFlowMeter sudah merupakan \textit{engineered features} yang informatif, sehingga kemampuan LSTM menangkap dependensi temporal tidak memberikan keunggulan signifikan. Hyperparameter tuning didokumentasikan dalam \texttt{results/metrics\_summary.csv} (6 eksperimen LSTM, 6 eksperimen GRU, 5 eksperimen RF).
+
+%==============================================================================
+% BAB IV - PEMBAGIAN TUGAS & DEKLARASI KONTRIBUSI INDIVIDUAL
+%==============================================================================
+\chapter{PEMBAGIAN TUGAS \& DEKLARASI KONTRIBUSI INDIVIDUAL}
+\label{bab:kontribusi}
+
+\section{Calvin Wirathama Katoroy -- NPM. 2306242395}
+
+\subsection*{IV.1.1 Komponen yang Dikerjakan}
+Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{src/models/lstm\_model.py}, \texttt{src/models/gru\_model.py}, \texttt{src/train.py}, \texttt{config.yaml}, \texttt{train\_local.py}
+    \item \textbf{Bagian arsitektur:} Desain LSTM/GRU classifier (pilihan \texttt{hidden\_size}, \texttt{num\_layers}, \texttt{dropout}, classification head), training loop dengan logging per epoch, weighted loss untuk class imbalance
+    \item \textbf{Bagian analisis:} Justifikasi pemilihan LSTM vs.\ GRU, rancangan hyperparameter grid, koneksi dengan penelitian GANDD-Bridge
+    \item \textbf{Bagian laporan:} Bab I, Bab II.2, Bab II.3, Bab III.3, koordinasi keseluruhan dokumen
+\end{itemize}
+
+\subsection*{IV.1.2 Pernyataan Penggunaan AI \textit{Assistant}}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Claude Sonnet 4.6 (Claude Code CLI, Anthropic)
+    \item \textbf{Untuk bagian apa:} Debugging sesekali pada training loop dan path resolution di Google Colab
+    \item \textbf{Tingkat ketergantungan:} rendah (estimasi $\sim$10\% output berasal dari AI)
+    \item \textbf{Pernyataan:} Saya memahami dan dapat mempertanggungjawabkan setiap baris kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
+
+%-------------------- Anggota 2 ----------------------
+\section{Syahmi Hamdani -- NPM. 2306220532}
+
+\subsection*{IV.2.1 Komponen yang Dikerjakan}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{src/preprocessing.py}, \texttt{notebooks/01\_eda.ipynb}, \texttt{notebooks/02\_preprocessing.ipynb}
+    \item \textbf{Bagian arsitektur:} Pipeline preprocessing \textit{end-to-end} (label normalization, feature selection, StandardScaler, stratified split, sliding window)
+    \item \textbf{Bagian analisis:} EDA distribusi kelas, korelasi antar fitur, justifikasi pemilihan 16 fitur CICFlowMeter, verifikasi tidak ada Inf/NaN setelah Kaggle cleaning
+    \item \textbf{Bagian laporan:} Bab III.1 (dataset), Bab III.2 (pra-pemrosesan)
+\end{itemize}
+
+\subsection*{IV.2.2 Pernyataan Penggunaan AI \textit{Assistant}}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Claude Sonnet 4.6 (Claude Code CLI, Anthropic)
+    \item \textbf{Untuk bagian apa:} Debugging sesekali pada operasi Pandas dan visualisasi EDA
+    \item \textbf{Tingkat ketergantungan:} rendah (estimasi $\sim$10\% output berasal dari AI)
+    \item \textbf{Pernyataan:} Saya memahami dan dapat mempertanggungjawabkan setiap baris kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
+
+%-------------------- Anggota 3 ---------------------------------------------
+\section{Christover Angelo -- NPM. 2306220323}
+
+\subsection*{IV.3.1 Komponen yang Dikerjakan}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{src/models/rf\_model.py}, \texttt{src/evaluate.py}, \texttt{notebooks/05\_rf\_training.ipynb}, \texttt{notebooks/08\_evaluation.ipynb}
+    \item \textbf{Bagian arsitektur:} Implementasi Random Forest baseline, pipeline evaluasi (classification\_report, confusion matrix, ROC/AUC untuk semua model)
+    \item \textbf{Bagian analisis:} Analisis performa per-kelas, perbandingan metrik antar model, visualisasi confusion matrix
+    \item \textbf{Bagian laporan:} Bab III.4 (implementasi model), Bab III.5 (hasil eksperimen)
+\end{itemize}
+
+\subsection*{IV.3.2 Pernyataan Penggunaan AI \textit{Assistant}}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Claude Sonnet 4.6 (Claude Code CLI, Anthropic)
+    \item \textbf{Untuk bagian apa:} Debugging sesekali pada plotting confusion matrix dan ROC curve
+    \item \textbf{Tingkat ketergantungan:} rendah (estimasi $\sim$10\% output berasal dari AI)
+    \item \textbf{Pernyataan:} Saya memahami dan dapat mempertanggungjawabkan setiap baris kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
+
+%-------------------- Anggota 4 ------
+\section{Matthew Immanuel -- NPM. 2306221024}
+
+\subsection*{IV.4.1 Komponen yang Dikerjakan}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{src/utils.py}, bagian visualisasi di \texttt{notebooks/08\_evaluation.ipynb}
+    \item \textbf{Bagian arsitektur:} Utility functions (seed setting, tqdm logging helpers, comparative plot functions), experiment logging ke \texttt{results/metrics\_summary.csv}
+    \item \textbf{Bagian analisis:} Overlay ROC curves, loss curves training LSTM/GRU, tabel hyperparameter experiment
+    \item \textbf{Bagian laporan:} Bab II.1 (studi literatur), Ringkasan Eksekutif, analisis etika \& bias (untuk laporan akhir)
+\end{itemize}
+
+\subsection*{IV.4.2 Pernyataan Penggunaan AI \textit{Assistant}}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Claude Sonnet 4.6 (Claude Code CLI, Anthropic)
+    \item \textbf{Untuk bagian apa:} Pengecekan tata bahasa sesekali pada penulisan laporan
+    \item \textbf{Tingkat ketergantungan:} rendah (estimasi $\sim$10\% output berasal dari AI)
+    \item \textbf{Pernyataan:} Saya memahami dan dapat mempertanggungjawabkan setiap baris kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
+
+%==============================================================================
+% LAMPIRAN
+%==============================================================================
+\appendix
+\renewcommand{\thechapter}{\Alph{chapter}}
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\centering}
+  {\appendixname\ \thechapter}{12pt}{\Large}
+
+%------ Lampiran A: Metadata JSON (versi sementara) -------------------------
+\chapter{Berkas Metadata Proyek (Versi Sementara)}
+\label{lamp:metadata}
+
+Berikut adalah isi berkas \texttt{metadata-kel08.json} versi saat ini.
+
+\begin{lstlisting}[language=json]
+{
+  "kode_kelompok": "K08",
+  "topik_pilihan": 2,
+  "nama_topik": "RNN / GRU / LSTM",
+  "judul_proyek": "Klasifikasi Lalu Lintas Jaringan DDoS Menggunakan LSTM, GRU, dan Random Forest pada Dataset CIC-DDoS2019",
+  "metode_ai": [
+    {"nama": "LSTM",          "peran": "utama"},
+    {"nama": "GRU",           "peran": "baseline"},
+    {"nama": "Random Forest", "peran": "baseline"}
+  ],
+  "datasets": [
+    {
+      "nama": "CIC-DDoS2019 (Kaggle cleaned)",
+      "tipe": "publik",
+      "url_sumber_publik": "https://www.kaggle.com/datasets/dhoogla/cicddos2019",
+      "jumlah_sampel": 431371,
+      "jumlah_kelas": 2
+    }
+  ],
+  "metrik_utama": ["Accuracy", "Precision", "Recall", "F1-Score", "FPR", "AUC-ROC"],
+  "klaim_bonus": ["B1", "B3"],
+  "tautan": {
+    "github": "https://github.com/calvinkatoroy/tugas-akhir-ai-kel-08",
+    "colab": "https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB"
+  },
+  "ai_assistant_usage": {
+    "digunakan": true,
+    "tools": ["Claude Sonnet 4.6 (Claude Code CLI, Anthropic)"],
+    "estimasi_persentase": 10
+  }
+}
+\end{lstlisting}
+
+%------ Lampiran B: Tautan Repositori ---------------------------------------
+\chapter{Tautan Repositori \& Sumber}
+\label{lamp:tautan}
+
+\begin{description}[leftmargin=5cm,labelwidth=4.5cm]
+    \item[GitHub repo:] \url{https://github.com/calvinkatoroy/tugas-akhir-ai-kel-08}
+    \item[Google Colab:] \url{https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB}
+    \item[Dataset (Kaggle):] \url{https://www.kaggle.com/datasets/dhoogla/cicddos2019}
+    \item[Dataset asli (CIC):] \url{https://www.unb.ca/cic/datasets/ddos-2019.html}
+    \item[Lab research repo:] \url{https://github.com/calvinkatoroy/wazuh-gan-ddos-research}
+\end{description}
+
+\end{document}

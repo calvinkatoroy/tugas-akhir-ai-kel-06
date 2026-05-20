@@ -1,0 +1,210 @@
+{
+  "kode_kelompok": "K08",
+  "topik_pilihan": 2,
+  "nama_topik": "RNN / GRU / LSTM",
+  "judul_proyek": "Klasifikasi Lalu Lintas Jaringan DDoS Menggunakan LSTM, GRU, dan Random Forest pada Dataset CIC-DDoS2019",
+  "abstrak_singkat": "Proyek ini membandingkan tiga arsitektur model untuk mengklasifikasikan lalu lintas jaringan secara binary (normal vs. ddos) pada dataset CIC-DDoS2019 versi cleaned Kaggle (431.371 sampel, 17 jenis serangan DDoS). LSTM dipilih sebagai model utama karena kemampuannya menangkap dependensi temporal dalam urutan aliran jaringan; GRU dan Random Forest digunakan sebagai baseline perbandingan. Pipeline mencakup StandardScaler, stratified 70/15/15 split, dan sliding window seq_len=10 untuk model sekuensial. Metrik evaluasi: accuracy, precision, recall, F1-score, FPR, dan AUC-ROC.",
+
+  "metode_ai": [
+    {
+      "nama": "LSTM",
+      "peran": "utama",
+      "varian": "LSTM(hidden_size=128, num_layers=2, dropout=0.3, batch_first=True) + Linear(128->64, ReLU, Dropout) + Linear(64->2)",
+      "catatan": "Model utama untuk menangkap dependensi temporal dalam urutan aliran jaringan."
+    },
+    {
+      "nama": "GRU",
+      "peran": "baseline",
+      "varian": "GRU(hidden_size=128, num_layers=2, dropout=0.3, batch_first=True) + Linear(128->64, ReLU, Dropout) + Linear(64->2)",
+      "catatan": "Baseline 1 — arsitektur identik dengan LSTM, mengganti LSTM cell dengan GRU cell."
+    },
+    {
+      "nama": "Random Forest",
+      "peran": "baseline",
+      "varian": "RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42)",
+      "catatan": "Baseline 2 — pendekatan ML tradisional, menggunakan flat feature vector tanpa sliding window."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "nama": "PyTorch",
+      "versi": "2.x",
+      "kegunaan": "Training dan inferensi LSTM dan GRU"
+    },
+    {
+      "nama": "scikit-learn",
+      "versi": "1.x",
+      "kegunaan": "Random Forest, StandardScaler, stratified split, classification_report"
+    },
+    {
+      "nama": "pandas / numpy",
+      "versi": "2.x / 1.x",
+      "kegunaan": "Loading parquet, preprocessing label, array operations"
+    }
+  ],
+
+  "datasets": [
+    {
+      "nama": "CIC-DDoS2019 (Kaggle cleaned version)",
+      "tipe": "publik",
+      "sumber": "dhoogla/cicddos2019 di Kaggle — versi cleaned dari CIC-UNB original (Canadian Institute for Cybersecurity)",
+      "url_sumber_publik": "https://www.kaggle.com/datasets/dhoogla/cicddos2019",
+      "jumlah_sampel": 431371,
+      "jumlah_kelas": 2,
+      "proses_akuisisi_mandiri": "",
+      "peran_di_proyek": "Dataset utama untuk training, validasi, dan testing semua model. Label di-map ke binary: normal (0) vs. ddos (1).",
+      "spek_rl": null
+    }
+  ],
+
+  "metrik_utama": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "FPR",
+    "AUC-ROC"
+  ],
+
+  "klaim_bonus": ["B1", "B3"],
+
+  "anggota": [
+    {
+      "nama": "Calvin Wirathama Katoroy",
+      "npm": "2306242395",
+      "peran_utama": "Ketua, Implementasi LSTM & GRU",
+      "focus_area": [
+        "Arsitektur LSTM dan GRU",
+        "Training loop PyTorch",
+        "Hyperparameter tuning",
+        "Domain expertise jaringan dan keamanan komputer"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "LSTM cell dengan forget/input/output gate (nn.LSTM, batch_first=True)",
+        "GRU cell dengan reset/update gate (nn.GRU)",
+        "Sliding window sequence generation untuk input sekuensial",
+        "PyTorch DataLoader dengan WeightedRandomSampler untuk class imbalance",
+        "CrossEntropyLoss + Adam optimizer, gradient clipping",
+        "Hyperparameter grid: hidden_size, num_layers, dropout, seq_len, lr"
+      ],
+      "konsep_dikuasai_teori": [
+        "Vanishing gradient problem dan solusi melalui gating mechanism",
+        "Perbedaan memory cell LSTM vs gated hidden state GRU",
+        "Mengapa lalu lintas jaringan memerlukan pemodelan sekuensial",
+        "Trade-off antara seq_len dan computational cost",
+        "DDoS attack types: volumetric, amplification, reflection"
+      ],
+      "bagian_laporan": ["Bab I", "Bab II.2", "Bab II.3", "Bab III.3"],
+      "bagian_kode": [
+        "src/models/lstm_model.py",
+        "src/models/gru_model.py",
+        "src/train.py",
+        "notebooks/03_lstm_training.ipynb",
+        "notebooks/04_gru_training.ipynb",
+        "config.yaml"
+      ]
+    },
+    {
+      "nama": "Syahmi Hamdani",
+      "npm": "2306220532",
+      "peran_utama": "Data Engineering & EDA",
+      "focus_area": [
+        "Akuisisi dan validasi dataset",
+        "Exploratory Data Analysis",
+        "Feature selection",
+        "Preprocessing pipeline"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "Pandas parquet loading dan label normalization ke binary",
+        "StandardScaler fit-on-train-only pipeline (mencegah data leakage)",
+        "Stratified 70/15/15 split dengan sklearn train_test_split",
+        "Analisis distribusi kelas dan visualisasi korelasi fitur"
+      ],
+      "konsep_dikuasai_teori": [
+        "Data leakage dari identifier columns (IP, port, timestamp)",
+        "Inf values pada CICFlowMeter akibat zero-duration flows (bagi nol)",
+        "Pentingnya stratified sampling pada imbalanced dataset",
+        "Seleksi fitur CICFlowMeter berdasarkan relevansi temporal terhadap DDoS"
+      ],
+      "bagian_laporan": ["Bab III.1", "Bab III.2"],
+      "bagian_kode": [
+        "src/preprocessing.py",
+        "notebooks/01_eda.ipynb",
+        "notebooks/02_preprocessing.ipynb"
+      ]
+    },
+    {
+      "nama": "Christover Angelo",
+      "npm": "2306220323",
+      "peran_utama": "Random Forest & Evaluasi",
+      "focus_area": [
+        "Implementasi Random Forest",
+        "Evaluation pipeline",
+        "Analisis metrik perbandingan"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "RandomForestClassifier dengan class_weight='balanced'",
+        "sklearn classification_report untuk precision/recall/F1 per kelas",
+        "Confusion matrix heatmap dengan seaborn",
+        "ROC curve dan AUC overlay untuk perbandingan semua model"
+      ],
+      "konsep_dikuasai_teori": [
+        "Random Forest: bagging ensemble decision tree dengan random feature subset",
+        "Gini impurity vs entropy sebagai kriteria node splitting",
+        "class_weight='balanced' sebagai penanganan class imbalance pada RF",
+        "Interpretasi FPR/TPR tradeoff dalam konteks Intrusion Detection System"
+      ],
+      "bagian_laporan": ["Bab III.4", "Bab III.5"],
+      "bagian_kode": [
+        "src/models/rf_model.py",
+        "src/evaluate.py",
+        "notebooks/05_rf_training.ipynb",
+        "notebooks/08_evaluation.ipynb"
+      ]
+    },
+    {
+      "nama": "Matthew Immanuel",
+      "npm": "2306221024",
+      "peran_utama": "Laporan & Visualisasi",
+      "focus_area": [
+        "Penulisan laporan",
+        "Visualisasi hasil eksperimen",
+        "Analisis etika dan bias"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "Matplotlib/seaborn untuk loss curve dan overlay ROC curves",
+        "Experiment logging ke DataFrame dan results/metrics_summary.csv",
+        "Comparative bar chart untuk perbandingan metrik semua model"
+      ],
+      "konsep_dikuasai_teori": [
+        "Distribution shift: lab testbed CIC-UNB 2019 vs traffic ISP produksi",
+        "Temporal drift: pola serangan 2019 vs attack landscape 2026",
+        "Class imbalance dalam CIC-DDoS2019 (dominasi DrDoS_NTP dan TFTP)",
+        "Bias benchmark dataset: hanya mencerminkan environment testbed terkontrol"
+      ],
+      "bagian_laporan": ["Bab II.1", "Ringkasan Eksekutif", "Lampiran"],
+      "bagian_kode": [
+        "src/utils.py",
+        "notebooks/08_evaluation.ipynb"
+      ]
+    }
+  ],
+
+  "tautan": {
+    "github": "https://github.com/calvinkatoroy/tugas-akhir-ai-kel-08",
+    "colab": "https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB",
+    "dataset_mandiri": null,
+    "video_demo": null
+  },
+
+  "ai_assistant_usage": {
+    "digunakan": true,
+    "tools": ["Claude Sonnet 4.6 (Claude Code CLI, Anthropic)"],
+    "bagian": [
+      "Debugging sesekali pada training loop dan preprocessing pipeline",
+      "Pengecekan tata bahasa pada penulisan laporan"
+    ],
+    "estimasi_persentase": 10
+  }
+}
