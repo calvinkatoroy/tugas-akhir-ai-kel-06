@@ -1,0 +1,4 @@
+model,accuracy,precision_ddos,recall_ddos,f1_ddos,fpr,roc_auc
+LSTM,0.9963,0.9987,0.9965,0.9976,0.0046,0.9996
+RandomForest,0.9987,0.9996,0.9988,0.9992,0.0015,0.9998
+GRU,0.9961,0.9992,0.9958,0.9975,0.0028,0.9996
