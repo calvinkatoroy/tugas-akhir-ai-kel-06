@@ -351,10 +351,20 @@ Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
 \section{Syahmi Hamdani -- NPM. 2306220532}
 
 \subsection*{IV.2.1 Komponen yang Dikerjakan}
-\textit{Akan diisi oleh anggota bersangkutan.}
+Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{src/preprocessing.py}, \texttt{verify\_dataset.py}, \texttt{notebooks/01\_eda.ipynb}, \texttt{notebooks/02\_preprocessing.ipynb}
+    \item \textbf{Bagian arsitektur:} Pipeline pra-pemrosesan data (StandardScaler fitted pada train set untuk mencegah data leakage, pembagian stratified 70/15/15 split, pembuatan sliding window sequence berukuran $(n, 10, 16)$), skrip validasi integritas dataset splits
+    \item \textbf{Bagian analisis:} Analisis eksplorasi sebaran kelas (class imbalance), analisis korelasi fitur jaringan (Pearson correlation heatmap), penentuan 16 fitur temporal kritis dari CICFlowMeter
+    \item \textbf{Bagian laporan:} Bab III.1 (Status per Tahap), Bab III.2 (Dataset \& Pra-pemrosesan), Lampiran A (Metadata JSON)
+\end{itemize}
 
 \subsection*{IV.2.2 Pernyataan Penggunaan AI \textit{Assistant}}
-\textit{Akan diisi oleh anggota bersangkutan.}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Claude Sonnet 4.6 (Claude Code CLI, Anthropic)
+    \item \textbf{Untuk bagian apa:} Debugging sesekali pada preprocessing pipeline dan validasi skrip dataset splits offline
+    \item \textbf{Pernyataan:} Saya memahami dan dapat mempertanggungjawabkan setiap baris kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
 
 %-------------------- Anggota 3 ---------------------------------------------
 \section{Christover Angelo -- NPM. 2306220323}

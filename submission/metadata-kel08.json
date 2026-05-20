@@ -108,8 +108,35 @@
     {
       "nama": "Syahmi Hamdani",
       "npm": "2306220532",
-      "peran_utama": "Data Engineering & EDA"
+      "peran_utama": "Data Engineering & EDA",
+      "focus_area": [
+        "Pipeline loading dan pembersihan dataset Parquet",
+        "Exploratory Data Analysis (EDA) sebaran kelas dan korelasi fitur",
+        "Preprocessing sekuensial (sliding window sequence generation)",
+        "Penskalaan fitur (StandardScaler) bebas data leakage"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "Standard scaling fitted hanya pada train set untuk mencegah data leakage (StandardScaler)",
+        "Pembagian stratified split 70/15/15 untuk mempertahankan proporsi kelas",
+        "Pembuatan sequence windows (sliding windows) dari array numpy 2D ke 3D",
+        "Visualisasi korelasi fitur dengan heatmap korelasi dan distribusi kelas dengan barplot",
+        "Skrip verify_dataset.py untuk validasi offline kualitas data splits"
+      ],
+      "konsep_dikuasai_teori": [
+        "Mengapa scaling (StandardScaler) wajib di-fit pada train set saja (data leakage prevention)",
+        "Pentingnya stratified splitting pada dataset yang tidak seimbang (class imbalance)",
+        "Konsep sliding window temporal dan pengaruh panjang sequence (seq_len) pada dependensi temporal",
+        "Karakteristik fitur-fitur jaringan (Flow Duration, Packets Rate, Avg Packet Size) dalam membedakan normal vs DDoS"
+      ],
+      "bagian_laporan": ["Bab III.1", "Bab III.2", "Lampiran A"],
+      "bagian_kode": [
+        "src/preprocessing.py",
+        "verify_dataset.py",
+        "notebooks/01_eda.ipynb",
+        "notebooks/02_preprocessing.ipynb"
+      ]
     },
+
     {
       "nama": "Christover Angelo",
       "npm": "2306220323",
