@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.nn as nn
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import autocast, GradScaler
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import f1_score
 try:
@@ -36,7 +36,7 @@ def train_one_epoch(model, loader, optimizer, criterion, device, scaler):
     for X_batch, y_batch in loader:
         X_batch, y_batch = X_batch.to(device, non_blocking=True), y_batch.to(device, non_blocking=True)
         optimizer.zero_grad()
-        with autocast(enabled=scaler is not None):
+        with autocast('cuda', enabled=scaler is not None):
             logits = model(X_batch)
             loss = criterion(logits, y_batch)
         if scaler is not None:
@@ -87,7 +87,7 @@ def train_model(model, X_train, y_train, X_val, y_val, cfg, model_key,
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = model.to(device)
-    scaler = GradScaler() if device.type == 'cuda' else None
+    scaler = GradScaler('cuda') if device.type == 'cuda' else None
 
     # class weights to handle imbalance
     n_neg = int((y_train == 0).sum())
