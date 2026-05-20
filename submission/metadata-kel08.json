@@ -138,10 +138,39 @@
     },
 
     {
-      "nama": "Christover Angelo",
-      "npm": "2306220323",
-      "peran_utama": "Laporan & Visualisasi"
-    },
+    "nama": "Christover Angelo",
+    "npm": "2306220323",
+    "peran_utama": "Error Analysis & Visualisasi Evaluasi",
+    "focus_area": [
+      "Analisis error dan misclassification model",
+      "Visualisasi evaluasi performa model",
+      "Interpretasi hasil klasifikasi DDoS",
+      "Dokumentasi analisis evaluasi model"
+    ],
+    "konsep_dikuasai_implementasi": [
+      "Pembuatan notebook error analysis untuk evaluasi model klasifikasi DDoS",
+      "Perhitungan error rate berdasarkan hasil accuracy model",
+      "Visualisasi perbandingan performa model menggunakan Matplotlib",
+      "Analisis False Positive dan False Negative pada sistem deteksi intrusi jaringan",
+      "Interpretasi hasil evaluasi model LSTM, GRU, dan Random Forest",
+      "Pengelolaan notebook analisis tambahan tanpa mengubah pipeline training utama"
+    ],
+    "konsep_dikuasai_teori": [
+      "Konsep False Positive dan False Negative pada sistem deteksi serangan jaringan",
+      "Pengaruh error rate terhadap performa model klasifikasi",
+      "Trade-off antara kemampuan deteksi serangan dan false alarm",
+      "Perbedaan karakteristik model deep learning sekuensial dan machine learning tradisional",
+      "Pentingnya error analysis dalam evaluasi model keamanan jaringan"
+    ],
+    "bagian_laporan": [
+      "Analisis Error Model",
+      "Interpretasi Hasil Evaluasi",
+      "Pembahasan Perbandingan Performa Model"
+    ],
+    "bagian_kode": [
+      "notebooks/09_error_analysis.ipynb"
+    ]
+  },
     {
       "nama": "Matthew Immanuel",
       "npm": "2306221024",
