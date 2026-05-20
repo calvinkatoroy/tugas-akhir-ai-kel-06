@@ -28,4 +28,3 @@ env/
 .DS_Store
 Thumbs.db
 *.~lock.*
-results/metrics_summary.csv

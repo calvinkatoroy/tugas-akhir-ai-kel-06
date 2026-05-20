@@ -1,0 +1,11 @@
+exp_id,model,hidden_size,num_layers,dropout,seq_len,lr,batch_size,best_val_f1,notes,accuracy,precision_ddos,recall_ddos,f1_ddos,fpr,roc_auc
+lstm_01_baseline,LSTM,128.0,2.0,0.3,10.0,0.001,32.0,0.9976,baseline - config defaults,,,,,,
+lstm_02_hidden64,LSTM,64.0,2.0,0.3,10.0,0.001,32.0,0.9976,hidden_size=64,,,,,,
+lstm_01_baseline,LSTM,128.0,2.0,0.3,10.0,0.001,32.0,0.9974,baseline - config defaults,,,,,,
+lstm_02_hidden64,LSTM,64.0,2.0,0.3,10.0,0.001,32.0,0.9977,hidden_size=64,,,,,,
+lstm_03_hidden256,LSTM,256.0,2.0,0.3,10.0,0.001,32.0,0.9975,hidden_size=256,,,,,,
+lstm_04_layers3,LSTM,128.0,3.0,0.3,10.0,0.001,32.0,0.9976,num_layers=3,,,,,,
+lstm_05_dropout05,LSTM,128.0,2.0,0.5,10.0,0.001,32.0,0.9974,dropout=0.5,,,,,,
+lstm_06_seqlen5,LSTM,128.0,2.0,0.3,5.0,0.001,32.0,0.9974,seq_len=5,,,,,,
+lstm_01_baseline,LSTM,128.0,2.0,0.3,10.0,0.001,32.0,0.9976,baseline - config defaults,,,,,,
+,LSTM,,,,,,,,,0.9963,0.9987,0.9965,0.9976,0.0046,0.9996
