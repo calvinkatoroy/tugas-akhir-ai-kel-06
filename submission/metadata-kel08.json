@@ -108,86 +108,17 @@
     {
       "nama": "Syahmi Hamdani",
       "npm": "2306220532",
-      "peran_utama": "Data Engineering & EDA",
-      "focus_area": [
-        "Akuisisi dan validasi dataset",
-        "Exploratory Data Analysis",
-        "Feature selection",
-        "Preprocessing pipeline"
-      ],
-      "konsep_dikuasai_implementasi": [
-        "Pandas parquet loading dan label normalization ke binary",
-        "StandardScaler fit-on-train-only pipeline (mencegah data leakage)",
-        "Stratified 70/15/15 split dengan sklearn train_test_split",
-        "Analisis distribusi kelas dan visualisasi korelasi fitur"
-      ],
-      "konsep_dikuasai_teori": [
-        "Data leakage dari identifier columns (IP, port, timestamp)",
-        "Inf values pada CICFlowMeter akibat zero-duration flows (bagi nol)",
-        "Pentingnya stratified sampling pada imbalanced dataset",
-        "Seleksi fitur CICFlowMeter berdasarkan relevansi temporal terhadap DDoS"
-      ],
-      "bagian_laporan": ["Bab III.1", "Bab III.2"],
-      "bagian_kode": [
-        "src/preprocessing.py",
-        "notebooks/01_eda.ipynb",
-        "notebooks/02_preprocessing.ipynb"
-      ]
+      "peran_utama": "Data Engineering & EDA"
     },
     {
       "nama": "Christover Angelo",
       "npm": "2306220323",
-      "peran_utama": "Random Forest & Evaluasi",
-      "focus_area": [
-        "Implementasi Random Forest",
-        "Evaluation pipeline",
-        "Analisis metrik perbandingan"
-      ],
-      "konsep_dikuasai_implementasi": [
-        "RandomForestClassifier dengan class_weight='balanced'",
-        "sklearn classification_report untuk precision/recall/F1 per kelas",
-        "Confusion matrix heatmap dengan seaborn",
-        "ROC curve dan AUC overlay untuk perbandingan semua model"
-      ],
-      "konsep_dikuasai_teori": [
-        "Random Forest: bagging ensemble decision tree dengan random feature subset",
-        "Gini impurity vs entropy sebagai kriteria node splitting",
-        "class_weight='balanced' sebagai penanganan class imbalance pada RF",
-        "Interpretasi FPR/TPR tradeoff dalam konteks Intrusion Detection System"
-      ],
-      "bagian_laporan": ["Bab III.4", "Bab III.5"],
-      "bagian_kode": [
-        "src/models/rf_model.py",
-        "src/evaluate.py",
-        "notebooks/05_rf_training.ipynb",
-        "notebooks/08_evaluation.ipynb"
-      ]
+      "peran_utama": "Random Forest & Evaluasi"
     },
     {
       "nama": "Matthew Immanuel",
       "npm": "2306221024",
-      "peran_utama": "Laporan & Visualisasi",
-      "focus_area": [
-        "Penulisan laporan",
-        "Visualisasi hasil eksperimen",
-        "Analisis etika dan bias"
-      ],
-      "konsep_dikuasai_implementasi": [
-        "Matplotlib/seaborn untuk loss curve dan overlay ROC curves",
-        "Experiment logging ke DataFrame dan results/metrics_summary.csv",
-        "Comparative bar chart untuk perbandingan metrik semua model"
-      ],
-      "konsep_dikuasai_teori": [
-        "Distribution shift: lab testbed CIC-UNB 2019 vs traffic ISP produksi",
-        "Temporal drift: pola serangan 2019 vs attack landscape 2026",
-        "Class imbalance dalam CIC-DDoS2019 (dominasi DrDoS_NTP dan TFTP)",
-        "Bias benchmark dataset: hanya mencerminkan environment testbed terkontrol"
-      ],
-      "bagian_laporan": ["Bab II.1", "Ringkasan Eksekutif", "Lampiran"],
-      "bagian_kode": [
-        "src/utils.py",
-        "notebooks/08_evaluation.ipynb"
-      ]
+      "peran_utama": "Laporan & Visualisasi"
     }
   ],
 
@@ -204,7 +135,6 @@
     "bagian": [
       "Debugging sesekali pada training loop dan preprocessing pipeline",
       "Pengecekan tata bahasa pada penulisan laporan"
-    ],
-    "estimasi_persentase": 10
+    ]
   }
 }
