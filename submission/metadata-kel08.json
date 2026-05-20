@@ -16,13 +16,13 @@
       "nama": "GRU",
       "peran": "baseline",
       "varian": "GRU(hidden_size=128, num_layers=2, dropout=0.3, batch_first=True) + Linear(128->64, ReLU, Dropout) + Linear(64->2)",
-      "catatan": "Baseline 1 — arsitektur identik dengan LSTM, mengganti LSTM cell dengan GRU cell."
+      "catatan": "Baseline 1 - arsitektur identik dengan LSTM, mengganti LSTM cell dengan GRU cell."
     },
     {
       "nama": "Random Forest",
       "peran": "baseline",
       "varian": "RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42)",
-      "catatan": "Baseline 2 — pendekatan ML tradisional, menggunakan flat feature vector tanpa sliding window."
+      "catatan": "Baseline 2 - pendekatan ML tradisional, menggunakan flat feature vector tanpa sliding window."
     }
   ],
 
@@ -48,7 +48,7 @@
     {
       "nama": "CIC-DDoS2019 (Kaggle cleaned version)",
       "tipe": "publik",
-      "sumber": "dhoogla/cicddos2019 di Kaggle — versi cleaned dari CIC-UNB original (Canadian Institute for Cybersecurity)",
+      "sumber": "dhoogla/cicddos2019 di Kaggle - versi cleaned dari CIC-UNB original (Canadian Institute for Cybersecurity)",
       "url_sumber_publik": "https://www.kaggle.com/datasets/dhoogla/cicddos2019",
       "jumlah_sampel": 431371,
       "jumlah_kelas": 2,
