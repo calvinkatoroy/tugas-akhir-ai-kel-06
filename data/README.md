@@ -4,7 +4,7 @@
 
 **Source:** Canadian Institute for Cybersecurity (CIC), University of New Brunswick
 **Cleaned version used:** [dhoogla/cicddos2019 on Kaggle](https://www.kaggle.com/datasets/dhoogla/cicddos2019)
-**Original raw data:** also downloaded locally for reference (not used for training — see below)
+**Original raw data:** also downloaded locally for reference (not used for training  -  see below)
 **License:** Public research use
 
 ---
@@ -96,5 +96,5 @@ Avg Packet Size, Avg Fwd Segment Size
 
 This project is the classifier comparison component of the GANDD-Bridge research
 (`github.com/calvinkatoroy/wazuh-gan-ddos-research`). That research uses a Random Forest
-discriminator inside Wazuh SIEM — this project benchmarks whether LSTM/GRU can
+discriminator inside Wazuh SIEM  -  this project benchmarks whether LSTM/GRU can
 replace or improve upon that RF baseline on real-world captured traffic.

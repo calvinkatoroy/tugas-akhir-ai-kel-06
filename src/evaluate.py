@@ -47,7 +47,7 @@ def _report_and_save(y_test, y_pred, y_prob, model_name, history,
     figures_dir.mkdir(parents=True, exist_ok=True)
 
     report = classification_report(y_test, y_pred, target_names=CLASS_NAMES, output_dict=True)
-    print(f'\n=== {model_name} — Classification Report ===')
+    print(f'\n=== {model_name}  -  Classification Report ===')
     print(classification_report(y_test, y_pred, target_names=CLASS_NAMES))
 
     cm = confusion_matrix(y_test, y_pred)
@@ -56,7 +56,7 @@ def _report_and_save(y_test, y_pred, y_prob, model_name, history,
 
     plot_confusion_matrix(
         cm, CLASS_NAMES,
-        title=f'Confusion Matrix — {model_name}',
+        title=f'Confusion Matrix  -  {model_name}',
         save_path=figures_dir / f'cm_{model_name.lower()}.png',
     )
 
@@ -66,7 +66,7 @@ def _report_and_save(y_test, y_pred, y_prob, model_name, history,
     if history:
         plot_loss_curves(
             history['train_loss'], history['val_loss'],
-            title=f'Loss Curves — {model_name}',
+            title=f'Loss Curves  -  {model_name}',
             save_path=figures_dir / f'loss_{model_name.lower()}.png',
         )
 

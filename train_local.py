@@ -1,5 +1,5 @@
 """
-Local GPU training script — reads splits from Google Drive (E:), saves checkpoints to Drive.
+Local GPU training script  -  reads splits from Google Drive (E:), saves checkpoints to Drive.
 Usage:
     python train_local.py --model lstm
     python train_local.py --model gru
@@ -85,7 +85,7 @@ def run_lstm():
         'lr': cfg['lstm']['learning_rate'],
         'batch_size': cfg['lstm']['batch_size'],
         'best_val_f1': round(max(history['val_f1']), 4),
-        'notes': 'baseline — local GPU',
+        'notes': 'baseline  -  local GPU',
     }, csv_path=str(DRIVE_ROOT / 'metrics_summary.csv'))
 
     best = build_lstm(cfg, n_features).to(device)
@@ -123,7 +123,7 @@ def run_gru():
         'lr': cfg['gru']['learning_rate'],
         'batch_size': cfg['gru']['batch_size'],
         'best_val_f1': round(max(history['val_f1']), 4),
-        'notes': 'baseline — local GPU',
+        'notes': 'baseline  -  local GPU',
     }, csv_path=str(DRIVE_ROOT / 'metrics_summary.csv'))
 
     best = build_gru(cfg, n_features).to(device)
@@ -158,7 +158,7 @@ def run_cnn():
         'kernel_size': cfg['cnn']['kernel_size'],
         'dropout': cfg['cnn']['dropout'],
         'best_val_f1': round(max(history['val_f1']), 4),
-        'notes': 'baseline — local GPU',
+        'notes': 'baseline  -  local GPU',
     }, csv_path=str(DRIVE_ROOT / 'metrics_summary.csv'))
 
     best = build_cnn(cfg, n_features).to(device)
@@ -194,7 +194,7 @@ def run_transformer():
         'num_layers': cfg['transformer']['num_layers'],
         'dropout': cfg['transformer']['dropout'],
         'best_val_f1': round(max(history['val_f1']), 4),
-        'notes': 'baseline — local GPU',
+        'notes': 'baseline  -  local GPU',
     }, csv_path=str(DRIVE_ROOT / 'metrics_summary.csv'))
 
     best = build_transformer(cfg, n_features).to(device)

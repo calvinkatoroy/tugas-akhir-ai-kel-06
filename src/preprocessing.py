@@ -11,7 +11,7 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
-# Label normalization — maps all raw label variants to canonical binary labels
+# Label normalization  -  maps all raw label variants to canonical binary labels
 _LABEL_MAP = {
     # benign variants
     'benign': 'normal',

@@ -131,5 +131,5 @@ def train_model(model, X_train, y_train, X_val, y_val, cfg, model_key,
                   f'val_loss={val_loss:.4f} acc={val_acc:.4f} f1={val_f1:.4f} | '
                   f'{elapsed:.1f}s')
 
-    print(f'  Best val F1: {best_val_f1:.4f} — checkpoint: {best_path}')
+    print(f'  Best val F1: {best_val_f1:.4f}  -  checkpoint: {best_path}')
     return history, str(best_path)
