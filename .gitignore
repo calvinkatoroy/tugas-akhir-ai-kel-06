@@ -24,6 +24,25 @@ env/
 # Claude Code
 .claude/
 
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.pdf
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Dataset splits (generated locally, too large for git)
+splits/
+
 # OS
 .DS_Store
 Thumbs.db

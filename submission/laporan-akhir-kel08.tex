@@ -633,10 +633,21 @@ Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
 \section{Syahmi Hamdani -- NPM. 2306220532}
 
 \subsection*{IV.2.1 Komponen yang Dikerjakan}
-\textit{[Diisi oleh Syahmi Hamdani]}
+Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{src/preprocessing.py}, \texttt{verify\_dataset.py}, \texttt{notebooks/01\_eda.ipynb}, \texttt{notebooks/02\_preprocessing.ipynb}
+    \item \textbf{Bagian arsitektur:} Pipeline pra-pemrosesan data (normalisasi label biner, seleksi 16 fitur CICFlowMeter, eliminasi NaN/Inf, stratified 70/15/15 split seed 42, StandardScaler fit pada train set, sliding window $(n, 10, 16)$ untuk LSTM/GRU), skrip validasi integritas dataset splits
+    \item \textbf{Bagian analisis:} EDA sebaran kelas (class imbalance), analisis korelasi antar fitur (Pearson correlation heatmap), penentuan 16 fitur temporal kritis dari CICFlowMeter
+    \item \textbf{Bagian laporan:} Bab III.1 (Dataset \& Pra-pemrosesan), Bab III.2 (Pembagian Dataset), Lampiran A (Metadata JSON)
+\end{itemize}
 
 \subsection*{IV.2.2 Pernyataan Penggunaan AI \textit{Assistant}}
-\textit{[Diisi oleh Syahmi Hamdani]}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Gemini (Google), Claude Sonnet 4.6 (Anthropic)
+    \item \textbf{Untuk bagian apa:} Debugging sesekali pada preprocessing pipeline (penanganan nilai Inf CICFlowMeter, validasi konsistensi split) dan pengecekan tata bahasa pada bagian laporan yang saya tulis
+    \item \textbf{Tingkat ketergantungan:} sedang
+    \item \textbf{Pernyataan:} Saya memahami dan dapat mempertanggungjawabkan setiap baris kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
 
 %-------------------- Anggota 3 -----------------------------------------------
 \section{Christover Angelo -- NPM. 2306220323}
