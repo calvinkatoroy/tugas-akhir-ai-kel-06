@@ -112,11 +112,36 @@
       "nama": "Syahmi Hamdani",
       "npm": "2306220532",
       "peran_utama": "Data Engineering & EDA",
-      "focus_area": [],
-      "konsep_dikuasai_implementasi": [],
-      "konsep_dikuasai_teori": [],
-      "bagian_laporan": [],
-      "bagian_kode": []
+      "focus_area": [
+        "Pipeline loading dan pembersihan dataset Parquet (CICFlowMeter)",
+        "Exploratory Data Analysis: sebaran kelas dan korelasi fitur",
+        "Preprocessing sekuensial: sliding window sequence generation",
+        "Penskalaan fitur (StandardScaler) bebas data leakage",
+        "Validasi integritas dataset splits"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "Label normalization: mapping 30+ varian label ke binary normal/ddos (_LABEL_MAP)",
+        "Feature selection dan eliminasi NaN/Inf dari output CICFlowMeter",
+        "StandardScaler fit-transform hanya pada train set, transform-only pada val dan test",
+        "Stratified split dua tahap (70/15/15, seed=42) mempertahankan proporsi kelas",
+        "Sliding window numpy: dari array 2D (n, 16) ke tensor 3D (n, seq_len, 16)",
+        "Penyimpanan flat splits (.npy) dan sequence splits (.npy) serta scaler (.pkl)",
+        "verify_dataset.py: cek file presence, shape, class balance, dan scaler statistics"
+      ],
+      "konsep_dikuasai_teori": [
+        "Mengapa StandardScaler wajib di-fit pada train set saja (mencegah data leakage)",
+        "Pentingnya stratified splitting pada dataset yang tidak seimbang (class imbalance ~77% DDoS)",
+        "Konsep sliding window temporal dan pengaruh seq_len pada informasi konteks sekuensial",
+        "Karakteristik fitur CICFlowMeter (Flow Duration, Packets/s, IAT, Flag Counts) dalam membedakan normal vs DDoS",
+        "Mengapa fitur CICFlowMeter yang sudah merupakan statistik agregat menyebabkan RF unggul atas LSTM/GRU"
+      ],
+      "bagian_laporan": ["Bab III.1 (Dataset & Pra-pemrosesan)", "Bab III.2 (Pembagian Dataset)", "Lampiran A (Metadata JSON)"],
+      "bagian_kode": [
+        "src/preprocessing.py",
+        "verify_dataset.py",
+        "notebooks/01_eda.ipynb",
+        "notebooks/02_preprocessing.ipynb"
+      ]
     },
     {
       "nama": "Christover Angelo",
@@ -168,7 +193,7 @@
     "github": "https://github.com/calvinkatoroy/tugas-akhir-ai-kel-06",
     "colab": "https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB",
     "dataset_mandiri": null,
-    "video_demo": null
+    "video_demo": "https://youtu.be/FvZyKP3EIfM"
   },
 
   "ai_assistant_usage": {
