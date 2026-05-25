@@ -702,7 +702,7 @@ Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
 \begin{itemize}[leftmargin=*]
     \item \textbf{Kode/modul:} \texttt{notebooks/09\_error\_analysis.ipynb}; artefak \texttt{results/figures/cm\_estimated\_comparison.png} dan \texttt{cost\_sensitive\_comparison.png}
     \item \textbf{Bagian arsitektur/eksekusi:} Notebook analisis lanjutan \textbf{read-only} atas hasil \texttt{notebooks/08\_evaluation.ipynb} (\texttt{final\_comparison.csv}, gambar CM); tidak mengubah pipeline training maupun \texttt{metrics\_summary.csv}.
-    \item \textbf{Bagian analisis:} \textit{Error analysis} teknis LSTM, GRU, Random Forest---rekonstruksi confusion matrix dari FPR/recall, verifikasi metrik sklearn, \textit{cost-sensitive analysis} ($w_{FN}=10w_{FP}$), interpretasi FP/FN, rekomendasi deploy RF.
+    \item \textbf{Bagian analisis:} \textit{Error analysis} teknis LSTM, GRU, Random Forest: rekonstruksi confusion matrix dari FPR/recall, verifikasi metrik sklearn, \textit{cost-sensitive analysis} ($w_{FN}=10w_{FP}$), interpretasi FP/FN, rekomendasi deploy RF.
     \item \textbf{Bagian laporan:} Bab Hasil Kualitatif \& \textit{Error Analysis}; interpretasi evaluasi; pembahasan perbandingan model.
 \end{itemize}
 
@@ -717,10 +717,20 @@ Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
 \section{Matthew Immanuel -- NPM. 2306221024}
 
 \subsection*{IV.4.1 Komponen yang Dikerjakan}
-\textit{[Diisi oleh Matthew Immanuel]}
+Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Kode/modul:} \texttt{notebooks/05\_rf\_training.ipynb}, \texttt{notebooks/08\_evaluation.ipynb}; manajemen pencatatan pada \texttt{results/metrics\_summary.csv} dan direktori \texttt{results/figures/}
+    \item \textbf{Bagian arsitektur/eksekusi:} Menjalankan eksperimen \textit{tuning hyperparameter} model \textit{baseline} Random Forest sebanyak 5 kali iterasi (variasi \texttt{n\_estimators} dan \texttt{max\_depth}) dan mengelola pemuatan (\textit{loading}) \textit{checkpoint} model untuk evaluasi.
+    \item \textbf{Bagian analisis:} Mengeksekusi komparasi performa final ketiga arsitektur model (LSTM, GRU, Random Forest), menghasilkan tabel perbandingan, serta membuat visualisasi \textit{Confusion Matrix} dan \textit{ROC Curve overlay}.
+    \item \textbf{Bagian laporan:} Desain Eksperimen Baseline, Hasil Evaluasi dan Analisis Komparatif, Kesimpulan Perbandingan Model.
+\end{itemize}
 
 \subsection*{IV.4.2 Pernyataan Penggunaan AI \textit{Assistant}}
-\textit{[Diisi oleh Matthew Immanuel]}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Tool yang dipakai:} Gemini, ChatGPT
+    \item \textbf{Untuk bagian apa:} \textit{Debugging} sintaks Python, perbaikan \textit{error} saat memuat \textit{checkpoint} antar-\textit{environment}, dan penyesuaian parameter visualisasi grafik Matplotlib.
+    \item \textbf{Pernyataan:} Saya memahami kode dan teks yang saya klaim sebagai bagian saya.
+\end{itemize}
 
 %==============================================================================
 % BAB V - KESIMPULAN & PEKERJAAN LANJUTAN
