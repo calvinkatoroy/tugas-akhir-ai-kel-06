@@ -821,6 +821,7 @@ Berikut adalah isi berkas \texttt{metadata-laporan-akhir-kel06.json} yang dikump
 
 \begin{description}[leftmargin=5.5cm,labelwidth=5cm, font=\small]
     \item[GitHub repo:] \url{https://github.com/calvinkatoroy/tugas-akhir-ai-kel-06}
+    \item[Google Drive (data):] \url{https://drive.google.com/drive/folders/1zMA2zvF8X0YFK6aUMIFcxZS61SwtzHnX?usp=drive_link}
     \item[Colab -- EDA:] \nburl{01\_eda.ipynb}
     \item[Colab -- Preprocessing:] \nburl{02\_preprocessing.ipynb}
     \item[Colab -- LSTM Training:] \nburl{03\_lstm\_training.ipynb}
@@ -834,7 +835,16 @@ Berikut adalah isi berkas \texttt{metadata-laporan-akhir-kel06.json} yang dikump
     \item[Video demo:] (terlampir terpisah / dikumpulkan via EMAS)
 \end{description}
 
-\textbf{Status akses:} repositori bersifat publik; seluruh tautan Colab dapat dibuka tanpa login. Sudah diverifikasi terbuka per 25 Mei 2026.
+\textbf{Status akses:} repositori dan folder Drive bersifat publik; seluruh tautan Colab dapat dibuka tanpa login. Sudah diverifikasi terbuka per 25 Mei 2026.
+
+\vspace{0.8em}
+\noindent\textbf{Cara menjalankan notebook di Google Colab:}
+\begin{enumerate}[leftmargin=*, itemsep=0.2em]
+    \item Buka tautan Google Drive di atas dan klik \textbf{Add shortcut to Drive} $\to$ pilih \textbf{My Drive} (root). Pastikan nama shortcut adalah \texttt{tugas-akhir-ai} (sesuai nama folder asli).
+    \item Buka salah satu tautan Colab di atas. Pastikan runtime menggunakan \textbf{GPU} (\textit{Runtime} $\to$ \textit{Change runtime type} $\to$ T4 GPU).
+    \item Jalankan semua cell secara berurutan (\textit{Runtime} $\to$ \textit{Run all}). Cell mount Drive akan meminta izin akses; klik \textit{Allow}.
+    \item Data splits, model checkpoint, dan hasil evaluasi dibaca/ditulis ke \texttt{/content/drive/MyDrive/tugas-akhir-ai/} secara otomatis.
+\end{enumerate}
 
 %------ Lampiran C: Research Participation Consent Form ----------------------
 \renewcommand{\appendixname}{APPENDIX}
