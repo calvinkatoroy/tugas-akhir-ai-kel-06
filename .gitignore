@@ -36,6 +36,7 @@ env/
 *.lot
 *.out
 *.pdf
+!submission/*.pdf
 *.run.xml
 *.synctex.gz
 *.toc
