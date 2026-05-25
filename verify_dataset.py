@@ -1,5 +1,5 @@
 """
-Dataset Verification Script for Kelompok 08.
+Dataset Verification Script for Kelompok 06.
 This script checks the integrity, shapes, data types, file sizes, and class balance
 of the processed dataset splits (.npy arrays) and the scaler (.pkl).
 

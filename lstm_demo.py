@@ -1,5 +1,5 @@
 """
-LSTM Inference Demo for Kelompok 08.
+LSTM Inference Demo for Kelompok 06.
 This script demonstrates how to load a trained LSTM classifier checkpoint,
 run inference on sequence windows of network traffic features, and classify them
 as normal or DDoS.

@@ -1,5 +1,5 @@
 {
-  "kode_kelompok": "K08",
+  "kode_kelompok": "K06",
   "topik_pilihan": 2,
   "nama_topik": "RNN / GRU / LSTM",
   "judul_proyek": "Klasifikasi Lalu Lintas Jaringan DDoS Menggunakan LSTM, GRU, dan Random Forest pada Dataset CIC-DDoS2019",
@@ -141,7 +141,7 @@
   ],
 
   "tautan": {
-    "github": "https://github.com/calvinkatoroy/tugas-akhir-ai-kel-08",
+    "github": "https://github.com/calvinkatoroy/tugas-akhir-ai-kel-06",
     "colab": "https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB",
     "dataset_mandiri": null,
     "video_demo": null
