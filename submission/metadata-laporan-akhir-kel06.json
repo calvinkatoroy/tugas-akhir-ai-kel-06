@@ -180,12 +180,36 @@
     {
       "nama": "Matthew Immanuel",
       "npm": "2306221024",
-      "peran_utama": "Laporan & Visualisasi",
-      "focus_area": [],
-      "konsep_dikuasai_implementasi": [],
-      "konsep_dikuasai_teori": [],
-      "bagian_laporan": [],
-      "bagian_kode": []
+      "peran_utama": "Random Forest & Evaluasi",
+      "focus_area": [
+        "Eksekusi eksperimen tuning hyperparameter model Random Forest",
+        "Pencatatan log metrik performa hasil eksperimen secara terstruktur",
+        "Evaluasi komparatif performa tiga arsitektur model (LSTM, GRU, Random Forest)",
+        "Visualisasi dan dokumentasi grafik performa model"
+      ],
+      "konsep_dikuasai_implementasi": [
+        "Eksekusi pengujian berulang (5x) pada model Random Forest dengan variasi n_estimators dan max_depth",
+        "Pencatatan dan akumulasi hasil metrik eksperimen ke dalam file metrics_summary.csv",
+        "Generasi Confusion Matrix untuk menganalisis detail prediksi benar dan salah pada tiap model",
+        "Pembuatan grafik ROC Curve Overlay untuk membandingkan performa klasifikasi tiga model sekaligus",
+        "Penyusunan tabel evaluasi final untuk membandingkan performa LSTM, GRU, dan Random Forest",
+        "Manajemen ekspor dan penyimpanan seluruh aset gambar evaluasi ke folder results/figures/"
+      ],
+      "konsep_dikuasai_teori": [
+        "Pengaruh hyperparameter n_estimators dan max_depth terhadap tingkat akurasi dan generalisasi model Random Forest",
+        "Teori metrik evaluasi klasifikasi menggunakan Confusion Matrix (True Positive, False Positive, dsb.)",
+        "Konsep grafik ROC (Receiver Operating Characteristic) dan nilai AUC sebagai standar komparasi performa model",
+        "Analisis perbandingan karakteristik hasil akhir antara model Machine Learning tradisional (RF) dengan Deep Learning sekuensial (LSTM & GRU)"
+      ],
+      "bagian_laporan": [
+        "Desain Eksperimen Baseline",
+        "Hasil Evaluasi dan Analisis Komparatif",
+        "Kesimpulan Perbandingan Model"
+      ],
+      "bagian_kode": [
+        "notebooks/05_rf_training.ipynb",
+        "notebooks/08_evaluation.ipynb"
+      ]
     }
   ],
 
