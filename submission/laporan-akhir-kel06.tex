@@ -297,42 +297,41 @@ GRU dipilih sebagai baseline pertama karena berbagi prinsip gated recurrent deng
 
 \begin{figure}[H]
 \centering
-\scalebox{0.88}{%
 \begin{tikzpicture}[
-  node distance=0.45cm,
+  node distance=0.5cm,
   proc/.style={rectangle, rounded corners=4pt, draw=blue!60!black,
-               fill=blue!7, text width=9cm, align=center,
-               minimum height=0.75cm, font=\small, inner sep=4pt},
+               fill=blue!7, text width=13cm, align=center,
+               minimum height=0.8cm, font=\small, inner sep=5pt},
   branch/.style={rectangle, rounded corners=4pt, draw=orange!70!black,
-                 fill=orange!8, text width=3.8cm, align=center,
-                 minimum height=1.4cm, font=\small, inner sep=4pt},
+                 fill=orange!8, text width=5.5cm, align=center,
+                 minimum height=1.5cm, font=\small, inner sep=5pt},
   arr/.style={-{Stealth[length=5pt,width=4pt]}, thick}
 ]
   \node[proc] (D) {\textbf{Dataset:} CIC-DDoS2019 $\to$ Label Normalization (binary)};
   \node[proc, below=of D] (F) {\textbf{Preprocessing:} Feature Selection (16 fitur CICFlowMeter), Drop NaN/Inf/Duplicate};
-  \node[proc, below=of F] (S) {\textbf{Stratified Split:} 70\% train / 15\% val / 15\% test \quad (seed = 42)};
+  \node[proc, below=of F] (S) {\textbf{Stratified Split:} 70\% train \;/\; 15\% val \;/\; 15\% test \quad (seed = 42)};
   \node[proc, below=of S] (N) {\textbf{Normalisasi:} StandardScaler fit on train, transform val/test};
-  \node[branch] (L) at ($(N.south)+(-2.3cm,-1.1cm)$) {
-    \textbf{LSTM / GRU}\\[2pt]
-    Sliding Window\\seq\_len = 10\\[1pt]
+  \node[branch] (L) at ($(N.south)+(-3.5cm,-1.2cm)$) {
+    \textbf{LSTM / GRU}\\[3pt]
+    Sliding Window \quad seq\_len = 10\\[2pt]
     output: $(n,\;10,\;16)$
   };
-  \node[branch] (R) at ($(N.south)+(+2.3cm,-1.1cm)$) {
-    \textbf{Random Forest}\\[2pt]
-    Flat vector\\[1pt]
+  \node[branch] (R) at ($(N.south)+(+3.5cm,-1.2cm)$) {
+    \textbf{Random Forest}\\[3pt]
+    Flat vector\\[2pt]
     output: $(n,\;16)$
   };
-  \node[proc] (T) at ($(N.south)+(0,-3.0cm)$) {\textbf{Training:} CrossEntropyLoss / \texttt{RF.fit()} $\to$ simpan checkpoint terbaik};
+  \node[proc] (T) at ($(N.south)+(0,-3.3cm)$) {\textbf{Training:} CrossEntropyLoss \;/\; \texttt{RF.fit()} $\to$ simpan checkpoint terbaik};
   \node[proc, below=of T] (E) {\textbf{Evaluasi:} Accuracy, Precision, Recall, F1-Score, FPR, AUC-ROC};
   \draw[arr] (D) -- (F);
   \draw[arr] (F) -- (S);
   \draw[arr] (S) -- (N);
-  \draw[arr] (N.south) -- ++(0,-0.35) -| (L.north);
-  \draw[arr] (N.south) -- ++(0,-0.35) -| (R.north);
-  \draw[arr] (L.south) -- ++(0,-0.25) -| (T.north);
-  \draw[arr] (R.south) -- ++(0,-0.25) -| (T.north);
+  \draw[arr] (N.south) -- ++(0,-0.4) -| (L.north);
+  \draw[arr] (N.south) -- ++(0,-0.4) -| (R.north);
+  \draw[arr] (L.south) -- ++(0,-0.3) -| (T.north);
+  \draw[arr] (R.south) -- ++(0,-0.3) -| (T.north);
   \draw[arr] (T) -- (E);
-\end{tikzpicture}}
+\end{tikzpicture}
 \caption{Block diagram sistem klasifikasi DDoS end-to-end}
 \label{fig:block-diagram}
 \end{figure}
