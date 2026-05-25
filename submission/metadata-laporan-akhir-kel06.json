@@ -122,11 +122,35 @@
       "nama": "Christover Angelo",
       "npm": "2306220323",
       "peran_utama": "Random Forest & Evaluasi",
-      "focus_area": [],
-      "konsep_dikuasai_implementasi": [],
-      "konsep_dikuasai_teori": [],
-      "bagian_laporan": [],
-      "bagian_kode": []
+      "focus_area": [
+      "Rekonstruksi confusion matrix dari FPR dan recall",
+      "Verifikasi konsistensi metrik evaluasi (sklearn)",
+      "Cost-sensitive error analysis untuk IDS",
+      "Visualisasi FP/FN dan interpretasi deploy model"
+    ],
+    "konsep_dikuasai_implementasi": [
+      "Notebook 09_error_analysis.ipynb: analisis lanjutan read-only atas hasil Notebook 08",
+      "Rekonstruksi TN/FP/FN/TP dari FPR dan recall_ddos pada test set",
+      "Verifikasi ulang accuracy, precision, recall, F1, dan FPR dari sel CM estimasi",
+      "Cost-sensitive scoring (weighted FP/FN) dan visualisasi Seaborn/Matplotlib",
+      "Penyimpanan cm_estimated_comparison.png dan cost_sensitive_comparison.png",
+      "Perhitungan error rate dan perbandingan metrik antar LSTM, GRU, Random Forest"
+    ],
+    "konsep_dikuasai_teori": [
+      "Definisi FPR dan recall dalam confusion matrix klasifikasi biner",
+      "Trade-off False Positive vs False Negative pada deteksi DDoS",
+      "Cost-sensitive evaluation untuk prioritas minim serangan terlewat (FN)",
+      "Keterbatasan metrik agregat (accuracy) tanpa analisis per-jenis kesalahan",
+      "Perbedaan karakteristik LSTM, GRU, dan Random Forest pada fitur CICFlowMeter"
+    ],
+    "bagian_laporan": [
+      "Analisis Error Model",
+      "Interpretasi Hasil Evaluasi",
+      "Pembahasan Perbandingan Performa Model"
+    ],
+    "bagian_kode": [
+      "notebooks/09_error_analysis.ipynb"
+    ]
     },
     {
       "nama": "Matthew Immanuel",
