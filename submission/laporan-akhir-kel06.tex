@@ -69,6 +69,7 @@
   linkcolor=black,
   urlcolor=blue,
   citecolor=black,
+  breaklinks=true,
   pdftitle={Laporan Akhir - Klasifikasi DDoS LSTM/GRU/RF - Kelompok 06},
   pdfauthor={Kelompok 06}
 }
@@ -806,15 +807,24 @@ Berikut adalah isi berkas \texttt{metadata-laporan-akhir-kel06.json} yang dikump
 \chapter{Tautan Repositori \& Sumber}
 \label{lamp:tautan}
 
-\begin{description}[leftmargin=5cm,labelwidth=4.5cm]
-    \item[GitHub repo:]   \url{https://github.com/calvinkatoroy/tugas-akhir-ai-kel-06}
-    \item[Google Colab:]  \url{https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB}
+\newcommand{\nburl}[1]{\url{https://colab.research.google.com/github/calvinkatoroy/tugas-akhir-ai-kel-06/blob/master/notebooks/#1}}
+
+\begin{description}[leftmargin=5.5cm,labelwidth=5cm, font=\small]
+    \item[GitHub repo:] \url{https://github.com/calvinkatoroy/tugas-akhir-ai-kel-06}
+    \item[Colab -- EDA:] \nburl{01\_eda.ipynb}
+    \item[Colab -- Preprocessing:] \nburl{02\_preprocessing.ipynb}
+    \item[Colab -- LSTM Training:] \nburl{03\_lstm\_training.ipynb}
+    \item[Colab -- GRU Training:] \nburl{04\_gru\_training.ipynb}
+    \item[Colab -- RF Training:] \nburl{05\_rf\_training.ipynb}
+    \item[Colab -- Evaluation:] \nburl{08\_evaluation.ipynb}
+    \item[Colab -- Error Analysis:] \nburl{09\_error\_analysis.ipynb}
+    \item[Colab -- Demo (Gradio):] \url{https://colab.research.google.com/drive/1rhoLvdyzKTdK9sGd4dRjkglO-lo2bBHB}
     \item[Dataset (Kaggle):] \url{https://www.kaggle.com/datasets/dhoogla/cicddos2019}
     \item[Dataset asli (CIC):] \url{https://www.unb.ca/cic/datasets/ddos-2019.html}
     \item[Video demo:] (terlampir terpisah / dikumpulkan via EMAS)
 \end{description}
 
-\textbf{Status akses:} repositori bersifat publik; Colab dapat diakses oleh siapapun yang memiliki tautan. Sudah diverifikasi terbuka per 25 Mei 2026.
+\textbf{Status akses:} repositori bersifat publik; seluruh tautan Colab dapat dibuka tanpa login. Sudah diverifikasi terbuka per 25 Mei 2026.
 
 %------ Lampiran C: Research Participation Consent Form ----------------------
 \renewcommand{\appendixname}{APPENDIX}
