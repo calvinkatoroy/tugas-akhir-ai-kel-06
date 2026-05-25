@@ -189,7 +189,7 @@ Hasil evaluasi pada \textit{test set}: LSTM mencapai F1-score 0,9976 (\textit{ac
 
 \section{Topik yang Dipilih}
 
-Topik yang dipilih adalah \textbf{RNN / GRU / LSTM} (Topik 2). Lalu lintas jaringan pada dasarnya bersifat sekuensial: sebuah aliran jaringan terdiri dari serangkaian paket yang memiliki ketergantungan temporal satu sama lain. LSTM, sebagai varian \textit{Recurrent Neural Network} (RNN) dengan mekanisme \textit{gating}, mampu menangkap pola temporal jangka panjang yang relevan dengan karakteristik serangan DDoS---seperti lonjakan volume paket yang terstruktur dalam waktu. Sebuah lonjakan pada $t=47$ hanya bernilai anomali dalam konteks rentang $t=44..46$; pendekatan non-sekuensial seperti Random Forest tidak dapat menangkap konteks ini secara langsung.
+Topik yang dipilih adalah \textbf{RNN / GRU / LSTM} (Topik 2). Lalu lintas jaringan pada dasarnya bersifat sekuensial: sebuah aliran jaringan terdiri dari serangkaian paket yang memiliki ketergantungan temporal satu sama lain. LSTM, sebagai varian \textit{Recurrent Neural Network} (RNN) dengan mekanisme \textit{gating}, mampu menangkap pola temporal jangka panjang yang relevan dengan karakteristik serangan DDoS, seperti lonjakan volume paket yang terstruktur dalam waktu. Sebuah lonjakan pada $t=47$ hanya bernilai anomali dalam konteks rentang $t=44..46$; pendekatan non-sekuensial seperti Random Forest tidak dapat menangkap konteks ini secara langsung.
 
 Pemilihan topik ini juga berkaitan dengan penelitian laboratorium di Network Laboratory DTE FT UI~\cite{breiman2001}, di mana Random Forest telah digunakan sebagai diskriminator dalam pipeline deteksi DDoS berbasis SIEM Wazuh. Proyek ini mengevaluasi apakah LSTM dan GRU dapat memberikan performa yang lebih baik dibandingkan Random Forest sebagai komponen klasifikasi dalam pipeline tersebut.
 
@@ -245,7 +245,7 @@ Roopak et al.\ (2019)~\cite{roopak2019} & LSTM, CNN, MLP pada IoT IDS & NSL-KDD 
 \end{tabularx}
 \end{table}
 
-Berbeda dari Roopak et al.~\cite{roopak2019} yang menggunakan dataset NSL-KDD dengan arsitektur tunggal, proyek ini mengevaluasi tiga arsitektur (LSTM, GRU, RF) secara komparatif pada CIC-DDoS2019---dataset yang lebih baru dan mencakup jenis serangan DDoS yang lebih beragam---dengan dokumentasi \textit{hyperparameter tuning} yang sistematis.
+Berbeda dari Roopak et al.~\cite{roopak2019} yang menggunakan dataset NSL-KDD dengan arsitektur tunggal, proyek ini mengevaluasi tiga arsitektur (LSTM, GRU, RF) secara komparatif pada CIC-DDoS2019, dataset yang lebih baru dan mencakup jenis serangan DDoS yang lebih beragam, dengan dokumentasi \textit{hyperparameter tuning} yang sistematis.
 
 \section{Landasan Teori Model yang Dipilih}
 
@@ -287,11 +287,11 @@ di mana $p_k$ adalah proporsi sampel kelas $k$ pada node tersebut. Penggunaan \t
 
 \section{Justifikasi Ilmiah Pemilihan Pendekatan AI}
 
-LSTM dipilih sebagai model utama karena dua alasan utama. \textbf{Pertama, dimensi temporal:} sebuah serangan DDoS memanifestasikan dirinya sebagai pola anomali dalam urutan aliran jaringan---lonjakan laju paket, perubahan ukuran paket, atau distribusi flag yang konsisten selama jendela waktu tertentu. LSTM secara eksplisit memodelkan dependensi ini melalui mekanisme \textit{gating}-nya, sedangkan Random Forest memproses setiap sampel sebagai observasi independen. \textbf{Kedua, konteks domain:} proyek ini merupakan evaluasi apakah LSTM dapat menggantikan komponen klasifikasi berbasis RF dalam pipeline deteksi DDoS di Network Laboratory DTE FT UI; perbandingan langsung pada dataset yang sama memberikan dasar evaluasi yang adil.
+LSTM dipilih sebagai model utama karena dua alasan utama. \textbf{Pertama, dimensi temporal:} sebuah serangan DDoS memanifestasikan dirinya sebagai pola anomali dalam urutan aliran jaringan, lonjakan laju paket, perubahan ukuran paket, atau distribusi flag yang konsisten selama jendela waktu tertentu. LSTM secara eksplisit memodelkan dependensi ini melalui mekanisme \textit{gating}-nya, sedangkan Random Forest memproses setiap sampel sebagai observasi independen. \textbf{Kedua, konteks domain:} proyek ini merupakan evaluasi apakah LSTM dapat menggantikan komponen klasifikasi berbasis RF dalam pipeline deteksi DDoS di Network Laboratory DTE FT UI; perbandingan langsung pada dataset yang sama memberikan dasar evaluasi yang adil.
 
 GRU dipilih sebagai baseline pertama karena berbagi prinsip gated recurrent dengan LSTM namun dengan arsitektur yang lebih sederhana (jumlah parameter $\approx$75\% dari LSTM untuk dimensi yang sama), memungkinkan analisis trade-off antara kompleksitas model dan performa. Random Forest dipilih sebagai baseline kedua karena: (1) merupakan metode yang sudah terbukti kuat untuk tabular data; (2) merepresentasikan pendekatan yang sudah digunakan pada sistem produksi laboratorium; (3) tidak memerlukan pemodelan temporal, sehingga perbedaan performa dengan LSTM/GRU mengkuantifikasi nilai aktual pemodelan sekuensial pada dataset ini.
 
-\textbf{Catatan penting:} Hasil menunjukkan RF mengungguli LSTM dan GRU. Ini mengindikasikan bahwa fitur CICFlowMeter---yang sudah merupakan statistik agregat aliran (mis.\ rata-rata \textit{inter-arrival time}, standar deviasi panjang paket)---sudah cukup informasi tanpa perlu pemodelan sekuensial tambahan. Setiap "aliran" dalam CICFlowMeter merupakan summary dari seluruh sesi koneksi, bukan urutan paket mentah; sifat temporal yang ingin ditangkap LSTM sudah terabstraksi ke dalam fitur-fitur tersebut.
+\textbf{Catatan penting:} Hasil menunjukkan RF mengungguli LSTM dan GRU. Ini mengindikasikan bahwa fitur CICFlowMeter, yang sudah merupakan statistik agregat aliran (mis.\ rata-rata \textit{inter-arrival time}, standar deviasi panjang paket), sudah cukup informasi tanpa perlu pemodelan sekuensial tambahan. Setiap "aliran" dalam CICFlowMeter merupakan summary dari seluruh sesi koneksi, bukan urutan paket mentah; sifat temporal yang ingin ditangkap LSTM sudah terabstraksi ke dalam fitur-fitur tersebut.
 
 \section{\textit{Block Diagram} Sistem End-to-End}
 
@@ -486,10 +486,10 @@ Metrik yang digunakan pada proyek ini dipilih berdasarkan konteks \textit{Intrus
 
 \begin{itemize}[leftmargin=*]
     \item \textbf{Accuracy}: proporsi prediksi benar dari seluruh sampel
-    \item \textbf{Precision} (DDoS): $\text{TP} / (\text{TP} + \text{FP})$ --- relevansi \textit{alert} yang diberikan sistem
-    \item \textbf{Recall} (DDoS): $\text{TP} / (\text{TP} + \text{FN})$ --- kemampuan mendeteksi semua serangan (\textit{detection rate})
+    \item \textbf{Precision} (DDoS): $\text{TP} / (\text{TP} + \text{FP})$, relevansi \textit{alert} yang diberikan sistem
+    \item \textbf{Recall} (DDoS): $\text{TP} / (\text{TP} + \text{FN})$, kemampuan mendeteksi semua serangan (\textit{detection rate})
     \item \textbf{F1-score} (DDoS): \textit{harmonic mean} dari Precision dan Recall
-    \item \textbf{FPR} (\textit{False Positive Rate}): $\text{FP} / (\text{FP} + \text{TN})$ --- lalu lintas normal yang salah diklasifikasikan sebagai serangan; metrik kritis karena FPR tinggi akan membanjiri tim SOC dengan \textit{false alert}
+    \item \textbf{FPR} (\textit{False Positive Rate}): $\text{FP} / (\text{FP} + \text{TN})$, lalu lintas normal yang salah diklasifikasikan sebagai serangan; metrik kritis karena FPR tinggi akan membanjiri tim SOC dengan \textit{false alert}
     \item \textbf{AUC-ROC}: luas di bawah kurva ROC; mengukur kemampuan diskriminasi model secara keseluruhan di berbagai ambang batas klasifikasi
 \end{itemize}
 
@@ -512,7 +512,7 @@ Random Forest (n\_est=100)  & 99,87\% & 99,96\% & 99,88\% & 0,9992 & 0,15\% & 0,
 \end{tabular}
 \end{table}
 
-Ketiga model mencapai performa yang sangat tinggi. Perbedaan F1-score absolut antara model terbaik (RF: 0,9992) dan terburuk (GRU: 0,9975) hanya 0,0017. Namun dari perspektif operasional IDS, perbedaan FPR antara RF (0,15\%) dan LSTM (0,46\%) cukup signifikan: pada volume lalu lintas 10 juta paket normal per hari, FPR 0,46\% menghasilkan 46.000 \textit{false alert} per hari, sementara FPR 0,15\% menghasilkan 15.000---selisih 31.000 \textit{false alert} yang harus ditangani tim SOC.
+Ketiga model mencapai performa yang sangat tinggi. Perbedaan F1-score absolut antara model terbaik (RF: 0,9992) dan terburuk (GRU: 0,9975) hanya 0,0017. Namun dari perspektif operasional IDS, perbedaan FPR antara RF (0,15\%) dan LSTM (0,46\%) cukup signifikan: pada volume lalu lintas 10 juta paket normal per hari, FPR 0,46\% menghasilkan 46.000 \textit{false alert} per hari, sementara FPR 0,15\% menghasilkan 15.000, selisih 31.000 \textit{false alert} yang harus ditangani tim SOC.
 
 \begin{figure}[h!]
 \centering
@@ -600,7 +600,7 @@ rf\_06 & 100 & None & 5 & 0.9989 & min\_split lebih besar \\
 \end{tabular}
 \end{table}
 
-Temuan dari tuning: (1) LSTM dan GRU sangat tidak sensitif terhadap perubahan \textit{hidden\_size} dan \textit{num\_layers} dalam rentang yang diuji; semua konfigurasi menghasilkan Val F1 dalam rentang 0,9971--0,9977; (2) Random Forest hampir tidak sensitif terhadap \texttt{n\_estimators} (50--200 memberikan hasil yang sama), tetapi \texttt{max\_depth=10} menurunkan performa sedikit, mengindikasikan bahwa \textit{full-depth} diperlukan untuk menangkap batas keputusan yang kompleks; (3) Mengurangi \texttt{seq\_len} dari 10 ke 5 menurunkan Val F1 LSTM dari 0,9976 ke 0,9974---indikasi kecil bahwa konteks 10 timestep lebih informatif.
+Temuan dari tuning: (1) LSTM dan GRU sangat tidak sensitif terhadap perubahan \textit{hidden\_size} dan \textit{num\_layers} dalam rentang yang diuji; semua konfigurasi menghasilkan Val F1 dalam rentang 0,9971--0,9977; (2) Random Forest hampir tidak sensitif terhadap \texttt{n\_estimators} (50--200 memberikan hasil yang sama), tetapi \texttt{max\_depth=10} menurunkan performa sedikit, mengindikasikan bahwa \textit{full-depth} diperlukan untuk menangkap batas keputusan yang kompleks; (3) Mengurangi \texttt{seq\_len} dari 10 ke 5 menurunkan Val F1 LSTM dari 0,9976 ke 0,9974, indikasi kecil bahwa konteks 10 timestep lebih informatif.
 
 \section{Hasil Kualitatif \& \textit{Error Analysis}}
 
@@ -608,7 +608,7 @@ Berdasarkan \textit{confusion matrix} pada test set ($\approx$64.705 sampel: $\a
 
 \textbf{Jenis kesalahan LSTM (FPR=0,46\%, $\approx$68 FP):}
 \begin{itemize}[leftmargin=*]
-    \item \textit{False Positive} (normal $\to$ diprediksi DDoS): lalu lintas normal dengan karakteristik mirip DDoS---seperti \textit{burst traffic} dari CDN atau streaming video dengan laju paket tinggi---salah diklasifikasikan. Ini adalah 68 dari 14.675 sampel normal ($\approx$0,46\%).
+    \item \textit{False Positive} (normal $\to$ diprediksi DDoS): lalu lintas normal dengan karakteristik mirip DDoS, seperti \textit{burst traffic} dari CDN atau streaming video dengan laju paket tinggi, salah diklasifikasikan. Ini adalah 68 dari 14.675 sampel normal ($\approx$0,46\%).
     \item \textit{False Negative} (DDoS $\to$ diprediksi normal): $\approx$175 sampel DDoS tidak terdeteksi, kemungkinan besar berasal dari serangan \textit{low-rate} seperti \texttt{UDP-lag} yang memiliki karakteristik mendekati lalu lintas normal.
 \end{itemize}
 
@@ -618,16 +618,16 @@ Berdasarkan \textit{confusion matrix} pada test set ($\approx$64.705 sampel: $\a
 
 \textbf{Hipotesis penyebab kegagalan:}
 \begin{enumerate}[leftmargin=*]
-    \item \textit{Burst traffic} yang sah (CDN \textit{prefetch}, streaming video, backup) memiliki statistik \textit{inter-arrival time} dan laju paket yang tumpang tindih dengan DDoS volumetrik---menyebabkan FP.
+    \item \textit{Burst traffic} yang sah (CDN \textit{prefetch}, streaming video, backup) memiliki statistik \textit{inter-arrival time} dan laju paket yang tumpang tindih dengan DDoS volumetrik, menyebabkan FP.
     \item Serangan \textit{low-rate} (mis.\ \texttt{UDP-lag}) dirancang untuk menyerupai lalu lintas normal; model apapun kesulitan mengklasifikasikannya tanpa konteks traffic jangka panjang.
-    \item Fitur CICFlowMeter sudah merupakan agregasi statistik per aliran (bukan urutan paket mentah), sehingga "temporal information" yang ingin dieksploitasi LSTM sudah terabstraksi ke dalam fitur-fitur tersebut---menjelaskan mengapa pemodelan sekuensial tidak memberikan keunggulan atas RF.
+    \item Fitur CICFlowMeter sudah merupakan agregasi statistik per aliran (bukan urutan paket mentah), sehingga "temporal information" yang ingin dieksploitasi LSTM sudah terabstraksi ke dalam fitur-fitur tersebut, menjelaskan mengapa pemodelan sekuensial tidak memberikan keunggulan atas RF.
 \end{enumerate}
 
 \section{Pembahasan}
 
 \subsection*{III.7.1 Interpretasi terhadap Rumusan Masalah}
 
-\textbf{RM1 (Performa LSTM):} LSTM mencapai F1-score 0,9976 dan FPR 0,46\% pada test set---performa yang sangat baik untuk sistem deteksi intrusi. Jauh melampaui threshold praktis yang umum digunakan dalam literature ($>$99\% recall untuk DDoS detection).
+\textbf{RM1 (Performa LSTM):} LSTM mencapai F1-score 0,9976 dan FPR 0,46\% pada test set, performa yang sangat baik untuk sistem deteksi intrusi. Jauh melampaui threshold praktis yang umum digunakan dalam literature ($>$99\% recall untuk DDoS detection).
 
 \textbf{RM2 (Perbandingan LSTM vs.\ GRU vs.\ RF):} Hipotesis awal bahwa LSTM akan mengungguli GRU dan RF tidak terkonfirmasi. Urutan performa: RF $>$ LSTM $>$ GRU. Penjelasan: dataset CIC-DDoS2019 menggunakan fitur CICFlowMeter yang sudah merupakan statistik agregat per-aliran, bukan urutan paket mentah. Temporal information yang menjadi keunggulan LSTM/GRU sudah terabstraksi ke dalam fitur-fitur ini, sehingga RF yang secara inheren mengeksploitasi kombinasi fitur tabular mampu berkinerja lebih baik. Temuan ini konsisten dengan literatur yang menunjukkan bahwa pada dataset dengan \textit{hand-crafted features} yang kuat, model ML tradisional sering kompetitif dengan deep learning.
 
@@ -720,7 +720,7 @@ Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
 \section{Kesimpulan}
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{(RM1)} Model LSTM mencapai F1-score 0,9976, accuracy 99,63\%, dan AUC 0,9996 pada test set CIC-DDoS2019---menunjukkan kemampuan yang sangat baik dalam mengklasifikasikan lalu lintas jaringan DDoS secara biner, dengan hanya 0,46\% lalu lintas normal yang salah diklasifikasikan sebagai serangan.
+    \item \textbf{(RM1)} Model LSTM mencapai F1-score 0,9976, accuracy 99,63\%, dan AUC 0,9996 pada test set CIC-DDoS2019, menunjukkan kemampuan yang sangat baik dalam mengklasifikasikan lalu lintas jaringan DDoS secara biner, dengan hanya 0,46\% lalu lintas normal yang salah diklasifikasikan sebagai serangan.
 
     \item \textbf{(RM2)} Hipotesis bahwa LSTM akan mengungguli GRU dan Random Forest tidak terkonfirmasi. Urutan performa pada test set adalah RF (F1=0,9992, FPR=0,15\%) $>$ LSTM (F1=0,9976, FPR=0,46\%) $>$ GRU (F1=0,9975, FPR=0,28\%). Keunggulan RF disebabkan oleh sifat fitur CICFlowMeter yang sudah merupakan statistik agregat aliran, sehingga informasi temporal yang menjadi keunggulan LSTM/GRU sudah terabstraksi ke dalam representasi fitur ini.
 
@@ -742,7 +742,7 @@ Daftar konkret bagian proyek yang menjadi tanggung jawab penuh saya:
     \item Mengganti input dari fitur CICFlowMeter agregat ke urutan \textit{raw packet features} untuk menguji apakah LSTM memang unggul ketika data benar-benar bersifat sekuensial (bukan agregasi).
     \item Mengintegrasikan model terbaik (RF) sebagai komponen klasifikasi dalam pipeline GANDD-Bridge di Wazuh SIEM dan membandingkan performa \textit{end-to-end} dengan sistem berbasis RF yang sudah ada.
     \item Menambahkan modul interpretability (mis.\ SHAP values untuk RF, attention visualization untuk LSTM) untuk memahami fitur mana yang paling berkontribusi pada keputusan klasifikasi.
-    \item Mengevaluasi robustness model terhadap \textit{adversarial traffic shaping}---yaitu apakah penyerang yang mengetahui arsitektur model dapat memodifikasi pola serangannya untuk menghindari deteksi.
+    \item Mengevaluasi robustness model terhadap \textit{adversarial traffic shaping}, yaitu apakah penyerang yang mengetahui arsitektur model dapat memodifikasi pola serangannya untuk menghindari deteksi.
 \end{enumerate}
 
 %==============================================================================
@@ -833,7 +833,7 @@ Each member completes their personal block below. Tick \textbf{exactly one} opti
 
 %--- Member 1: Calvin Wirathama Katoroy ---
 \newpage
-\section*{Individual Consent --- Calvin Wirathama Katoroy}
+\section*{Individual Consent: Calvin Wirathama Katoroy}
 
 \noindent
 \begin{tabular}{p{0.28\textwidth}p{0.65\textwidth}}
@@ -865,7 +865,7 @@ I have read Sections C.1--C.4 and understood their contents. I voluntarily choos
 
 %--- Member 2: Syahmi Hamdani ---
 \newpage
-\section*{Individual Consent --- Syahmi Hamdani}
+\section*{Individual Consent: Syahmi Hamdani}
 
 \noindent
 \begin{tabular}{p{0.28\textwidth}p{0.65\textwidth}}
@@ -881,9 +881,9 @@ I have read Sections C.1--C.4 and understood their contents. I voluntarily choos
 \vspace{0.5em}
 
 \begin{itemize}[leftmargin=2em, label={$\square$}, itemsep=0.8em]
-    \item \textbf{Option A --- Full Participation.}
-    \item \textbf{Option B --- Limited Participation.}
-    \item \textbf{Option C --- Decline Participation.}
+    \item \textbf{Option A: Full Participation.}
+    \item \textbf{Option B: Limited Participation.}
+    \item \textbf{Option C: Decline Participation.}
 \end{itemize}
 
 \vfill
@@ -897,7 +897,7 @@ I have read Sections C.1--C.4 and understood their contents. I voluntarily choos
 
 %--- Member 3: Christover Angelo ---
 \newpage
-\section*{Individual Consent --- Christover Angelo}
+\section*{Individual Consent: Christover Angelo}
 
 \noindent
 \begin{tabular}{p{0.28\textwidth}p{0.65\textwidth}}
@@ -913,9 +913,9 @@ I have read Sections C.1--C.4 and understood their contents. I voluntarily choos
 \vspace{0.5em}
 
 \begin{itemize}[leftmargin=2em, label={$\square$}, itemsep=0.8em]
-    \item \textbf{Option A --- Full Participation.}
-    \item \textbf{Option B --- Limited Participation.}
-    \item \textbf{Option C --- Decline Participation.}
+    \item \textbf{Option A: Full Participation.}
+    \item \textbf{Option B: Limited Participation.}
+    \item \textbf{Option C: Decline Participation.}
 \end{itemize}
 
 \vfill
@@ -929,7 +929,7 @@ I have read Sections C.1--C.4 and understood their contents. I voluntarily choos
 
 %--- Member 4: Matthew Immanuel ---
 \newpage
-\section*{Individual Consent --- Matthew Immanuel}
+\section*{Individual Consent: Matthew Immanuel}
 
 \noindent
 \begin{tabular}{p{0.28\textwidth}p{0.65\textwidth}}
@@ -945,9 +945,9 @@ I have read Sections C.1--C.4 and understood their contents. I voluntarily choos
 \vspace{0.5em}
 
 \begin{itemize}[leftmargin=2em, label={$\square$}, itemsep=0.8em]
-    \item \textbf{Option A --- Full Participation.}
-    \item \textbf{Option B --- Limited Participation.}
-    \item \textbf{Option C --- Decline Participation.}
+    \item \textbf{Option A: Full Participation.}
+    \item \textbf{Option B: Limited Participation.}
+    \item \textbf{Option C: Decline Participation.}
 \end{itemize}
 
 \vfill
