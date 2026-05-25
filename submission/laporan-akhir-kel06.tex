@@ -311,17 +311,17 @@ GRU dipilih sebagai baseline pertama karena berbagi prinsip gated recurrent deng
   \node[proc, below=of D] (F) {\textbf{Preprocessing:} Feature Selection (16 fitur CICFlowMeter), Drop NaN/Inf/Duplicate};
   \node[proc, below=of F] (S) {\textbf{Stratified Split:} 70\% train \;/\; 15\% val \;/\; 15\% test \quad (seed = 42)};
   \node[proc, below=of S] (N) {\textbf{Normalisasi:} StandardScaler fit on train, transform val/test};
-  \node[branch] (L) at ($(N.south)+(-3.5cm,-1.2cm)$) {
+  \node[branch] (L) at ($(N.south)+(-3.5cm,-1.7cm)$) {
     \textbf{LSTM / GRU}\\[3pt]
     Sliding Window \quad seq\_len = 10\\[2pt]
     output: $(n,\;10,\;16)$
   };
-  \node[branch] (R) at ($(N.south)+(+3.5cm,-1.2cm)$) {
+  \node[branch] (R) at ($(N.south)+(+3.5cm,-1.7cm)$) {
     \textbf{Random Forest}\\[3pt]
     Flat vector\\[2pt]
     output: $(n,\;16)$
   };
-  \node[proc] (T) at ($(N.south)+(0,-3.3cm)$) {\textbf{Training:} CrossEntropyLoss \;/\; \texttt{RF.fit()} $\to$ simpan checkpoint terbaik};
+  \node[proc] (T) at ($(N.south)+(0,-3.8cm)$) {\textbf{Training:} CrossEntropyLoss \;/\; \texttt{RF.fit()} $\to$ simpan checkpoint terbaik};
   \node[proc, below=of T] (E) {\textbf{Evaluasi:} Accuracy, Precision, Recall, F1-Score, FPR, AUC-ROC};
   \draw[arr] (D) -- (F);
   \draw[arr] (F) -- (S);
